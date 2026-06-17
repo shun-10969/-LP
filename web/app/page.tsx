@@ -572,7 +572,7 @@ export default function Home() {
             maxWidth: "1200px",
             margin: "0 auto",
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(330px,1fr))",
+            gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,330px),1fr))",
             gap: "clamp(28px,4vw,56px)",
             alignItems: "center",
             paddingBottom: "90px",
@@ -754,7 +754,7 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "clamp(16px,2.4vw,22px)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,260px),1fr))", gap: "clamp(16px,2.4vw,22px)" }}>
             <Reveal delay={0} style={{ position: "relative", background: "#f5fbfe", border: "1.5px solid #e2f1f8", borderRadius: "22px", padding: "30px 26px", overflow: "hidden", transition: "transform .3s ease, box-shadow .3s ease" }} hoverStyle={{ transform: "translateY(-6px)", boxShadow: "0 20px 40px rgba(10,147,196,.14)" }}>
               <div style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "13px", color: ocean, letterSpacing: ".08em", marginBottom: "14px" }}>こだわり 01</div>
               <h3 style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "19px", margin: "0 0 11px", color: "#0a3346", lineHeight: 1.45 }}>成長に合わせて、<br />教え方を変える。</h3>
@@ -789,7 +789,7 @@ export default function Home() {
               走る・跳ぶ・投げる——陸上で育つ「基礎運動能力」は、どんな競技でも“活躍できる力”に。いま夢中なスポーツにも、これから出会う競技にも、ずっと生きてきます。これがミヤタアスリートクラブで身につく、一生モノの財産です。
             </p>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(168px,1fr))", gap: "14px", marginBottom: "clamp(24px,3vw,36px)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,168px),1fr))", gap: "14px", marginBottom: "clamp(24px,3vw,36px)" }}>
             {SKILLS.map((sk) => (
               <Reveal
                 key={sk.name}
@@ -824,7 +824,7 @@ export default function Home() {
         <Reveal delay={0} style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", overflow: "hidden", background: "linear-gradient(135deg,var(--ocean,#0a93c4) 0%, #1cb3d8 55%, #36c7e3 100%)", borderRadius: "28px", padding: "clamp(32px,5vw,56px) clamp(26px,5vw,56px)", boxShadow: "0 24px 50px rgba(10,147,196,.3)" }}>
           <div style={{ position: "absolute", top: "-40px", right: "-20px", width: "200px", height: "200px", borderRadius: "50%", background: "rgba(255,255,255,.12)" }} />
           <div style={{ position: "absolute", bottom: "-60px", left: "30%", width: "160px", height: "160px", borderRadius: "50%", background: "rgba(255,255,255,.08)" }} />
-          <div style={{ position: "relative", zIndex: 2, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "28px", alignItems: "center" }}>
+          <div style={{ position: "relative", zIndex: 2, display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,260px),1fr))", gap: "28px", alignItems: "center" }}>
             <div>
               <div style={{ display: "inline-block", background: accent, color: "#fff", fontWeight: 900, fontFamily: "'Zen Maru Gothic',sans-serif", fontSize: "13px", padding: "7px 16px", borderRadius: "999px", marginBottom: "16px", boxShadow: "0 8px 18px rgba(255,90,43,.35)" }}>入会前にまずは体験</div>
               <h2 style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, color: "#fff", fontSize: "clamp(28px,4.4vw,46px)", margin: "0 0 12px", lineHeight: 1.25 }}>見学・体験は<br /><span style={{ color: "#ffe39c" }}>無料</span>です。</h2>
@@ -855,7 +855,7 @@ export default function Home() {
             <p style={{ margin: 0, color: "#48707f", fontSize: "15px" }}>小学生から一般まで、年齢・レベルで選べる3コース。毎月クレジットカード決済（自動更新）で、いつでも切り替えできます。</p>
           </Reveal>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "20px", alignItems: "stretch" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,260px),1fr))", gap: "20px", alignItems: "stretch" }}>
             {COURSES.map((c) => (
               <Reveal
                 key={c.key}
@@ -894,7 +894,7 @@ export default function Home() {
 
           <p style={{ textAlign: "center", color: "#5a7d8c", fontSize: "13.5px", fontWeight: 700, margin: "20px 0 0" }}>各コース定員制 <span style={{ color: "#88a3ae", fontWeight: 600 }}>※エリア拡大に伴い増員予定</span></p>
 
-          <Reveal delay={80} style={{ marginTop: "26px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: "14px" }}>
+          <Reveal delay={80} style={{ marginTop: "26px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,150px),1fr))", gap: "14px" }}>
             <div style={{ background: "#fff6f1", border: "1.5px solid #ffe0d3", borderRadius: "18px", padding: "18px 20px", textAlign: "center" }}>
               <div style={{ fontSize: "12.5px", color: "#9a6a55", fontWeight: 700 }}>入会金</div>
               <div style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "22px", color: accent, marginTop: "4px" }}>{yen(JOIN_FEE_YEN)}</div>
@@ -1003,7 +1003,7 @@ export default function Home() {
             <div style={{ fontWeight: 900, letterSpacing: ".2em", color: accent, fontSize: "13px", marginBottom: "12px" }}>ACCESS</div>
             <h2 style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "clamp(26px,3.6vw,40px)", margin: 0, color: "#0a3346" }}>練習場所</h2>
           </Reveal>
-          <Reveal delay={80} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "26px", alignItems: "stretch" }}>
+          <Reveal delay={80} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))", gap: "26px", alignItems: "stretch" }}>
             <div style={{ position: "relative", borderRadius: "24px", overflow: "hidden", minHeight: "300px", background: "repeating-linear-gradient(45deg,#dceef6,#dceef6 14px,#e8f4fa 14px,#e8f4fa 28px)", border: "1.5px solid #cfe6f0", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <div style={{ textAlign: "center", color: "#6f93a2" }}>
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style={{ margin: "0 auto 8px", display: "block" }}><path d="M12 21s-7-5.2-7-10a7 7 0 1114 0c0 4.8-7 10-7 10z" stroke="#6f93a2" strokeWidth="2" /><circle cx="12" cy="11" r="2.4" stroke="#6f93a2" strokeWidth="2" /></svg>
@@ -1063,7 +1063,7 @@ export default function Home() {
             <div style={{ fontWeight: 900, letterSpacing: ".2em", color: accent, fontSize: "13px", marginBottom: "10px" }}>JOIN US</div>
             <h2 style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "clamp(22px,3vw,32px)", margin: 0, color: "#0a3346" }}>一緒に、子どもたちを応援しませんか</h2>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "18px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))", gap: "18px" }}>
             <Reveal as="a" delay={60} {...{ href: "/coach" }} style={{ textDecoration: "none", position: "relative", overflow: "hidden", display: "block", background: "linear-gradient(150deg,#ff7d4a,#ff5a2b)", borderRadius: "24px", padding: "30px 28px", boxShadow: "0 18px 38px rgba(255,90,43,.3)", transition: "transform .3s ease, box-shadow .3s ease" }} hoverStyle={{ transform: "translateY(-6px)", boxShadow: "0 26px 50px rgba(255,90,43,.42)" }}>
               <div style={{ position: "absolute", top: "-30px", right: "-20px", width: "130px", height: "130px", borderRadius: "50%", background: "rgba(255,255,255,.12)" }} />
               <div style={{ position: "relative", zIndex: 2 }}>
@@ -1085,7 +1085,7 @@ export default function Home() {
           </div>
 
           {/* 関連事業 & コラボ */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "18px", marginTop: "18px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))", gap: "18px", marginTop: "18px" }}>
             <Reveal delay={60} style={{ background: "#fff", border: "1px solid #e4ebef", borderRadius: "22px", padding: "26px 26px", boxShadow: "0 8px 24px rgba(10,58,77,.06)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "16px" }}>
                 <div style={{ width: "7px", height: "7px", borderRadius: "50%", background: ocean }} />
@@ -1237,7 +1237,7 @@ export default function Home() {
               <h2 style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "clamp(24px,3.4vw,36px)", margin: "0 0 8px", color: "#0a3346" }}>コーチ紹介</h2>
               <p style={{ margin: 0, color: "#48707f", fontSize: "14.5px" }}>子どもから一般まで、一人ひとりに寄り添う指導者がそろっています。</p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(290px,1fr))", gap: "22px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,290px),1fr))", gap: "22px" }}>
               {COACHES.map((m) => (
                 <div key={m.id} style={{ background: "#fff", border: "1.5px solid #e2f1f8", borderRadius: "22px", padding: "26px 24px", boxShadow: "0 14px 34px rgba(10,147,196,.08)", display: "flex", flexDirection: "column" }}>
                   <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
