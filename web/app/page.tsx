@@ -579,27 +579,6 @@ export default function Home() {
           }}
         >
           <Reveal delay={0}>
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                background: "rgba(255,255,255,.7)",
-                border: "1.5px solid rgba(10,147,196,.25)",
-                padding: "8px 16px",
-                borderRadius: "999px",
-                fontWeight: 800,
-                fontSize: "13px",
-                color: ocean,
-                marginBottom: "22px",
-              }}
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s-7-5.2-7-10a7 7 0 1114 0c0 4.8-7 10-7 10z" stroke="currentColor" strokeWidth="2" />
-                <circle cx="12" cy="11" r="2.4" stroke="currentColor" strokeWidth="2" />
-              </svg>
-              コザ運動公園 陸上競技場
-            </div>
             <h1
               style={{
                 fontFamily: "'Zen Maru Gothic',sans-serif",
