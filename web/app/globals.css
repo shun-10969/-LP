@@ -1,0 +1,91 @@
+/* ====== Base reset (from the design prototype) ====== */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+body {
+  margin: 0;
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  color: #0c3a4d;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+* {
+  box-sizing: border-box;
+}
+::selection {
+  background: rgba(255, 106, 61, 0.22);
+}
+
+/* ====== Shared keyframes (from the LP hero / decorations) ====== */
+@keyframes kenburns {
+  from { transform: scale(1.02); }
+  to { transform: scale(1.14); }
+}
+@keyframes pulseRing {
+  0% { transform: scale(0.82); opacity: 0.55; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+@keyframes floatA {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-22px); }
+}
+@keyframes floatB {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(16px) translateX(-12px); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+@keyframes sunGlow {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+@keyframes sheen {
+  0% { transform: translateX(-120%); }
+  60%, 100% { transform: translateX(220%); }
+}
+@keyframes waveDrift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes popIn {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes runBob {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-9px) rotate(1.5deg); }
+}
+@keyframes hurdleHop {
+  0% { transform: translate(0, 0) rotate(-2deg); }
+  40% { transform: translate(6%, -48px) rotate(5deg); }
+  70% { transform: translate(12%, 0) rotate(-1deg); }
+  100% { transform: translate(0, 0) rotate(-2deg); }
+}
+@keyframes longJump {
+  0% { transform: translate(0, 0) rotate(-3deg); }
+  16% { transform: translate(-12%, 2px) rotate(-6deg); }
+  46% { transform: translate(14%, -60px) rotate(8deg); }
+  64% { transform: translate(26%, 8px) rotate(2deg); }
+  100% { transform: translate(0, 0) rotate(-3deg); }
+}
+@keyframes streakMove {
+  0% { transform: translateX(40px); opacity: 0; }
+  25% { opacity: 0.85; }
+  100% { transform: translateX(-230px); opacity: 0; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes kbZoom {
+  from { transform: scale(1.03); }
+  to { transform: scale(1.12); }
+}
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.7; }
+}
