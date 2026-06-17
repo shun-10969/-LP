@@ -19,9 +19,13 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { createClient } from "../web/node_modules/@supabase/supabase-js/dist/main/index.js";
+import { createRequire } from "node:module";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Resolve @supabase/supabase-js from the web app's node_modules.
+const require = createRequire(join(__dirname, "..", "web", "package.json"));
+const { createClient } = require("@supabase/supabase-js");
 
 // Light .env.local loader (no dependency) — env vars take precedence.
 function loadEnv() {
