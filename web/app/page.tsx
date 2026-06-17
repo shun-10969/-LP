@@ -17,7 +17,7 @@ const planByKey = Object.fromEntries(COURSE_PLANS.map((p) => [p.key, p]));
 const COURSES = [
   {
     key: "low",
-    img: "course-low.png",
+    img: "mascot-green.png",
     title: "低学年コース",
     grade: "小1〜3年",
     color: "#0a7d4f",
@@ -43,7 +43,7 @@ const COURSES = [
   },
   {
     key: "adv",
-    img: "course-adv.png",
+    img: "mascot-blue.png",
     title: "アスリート育成コース",
     grade: "中学生〜一般",
     color: "#0a5f8a",
@@ -153,6 +153,7 @@ export default function Home() {
   const [withdrawn, setWithdrawn] = useState(false);
   const [trialError, setTrialError] = useState("");
   const [navSolid, setNavSolid] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   // video autoplay (muted/loop/play forced like the prototype)
@@ -178,7 +179,7 @@ export default function Home() {
   }, []);
 
   // body scroll lock while a modal/overlay is open
-  const anyOpen = !!checkout || coachesOpen || withdrawOpen;
+  const anyOpen = !!checkout || coachesOpen || withdrawOpen || mobileMenuOpen;
   useEffect(() => {
     document.body.style.overflow = anyOpen ? "hidden" : "";
     return () => {
@@ -451,10 +452,12 @@ export default function Home() {
             <img
               src="/assets/miyata-logo-trans.png"
               alt="ミヤタアスリートクラブ"
-              style={{ height: "92px", width: "auto", display: "block" }}
+              style={{ height: "clamp(52px,10vw,88px)", width: "auto", display: "block" }}
             />
           </a>
-          <div style={{ display: "flex", alignItems: "center", gap: "clamp(10px,2.4vw,30px)" }}>
+
+          {/* Desktop nav links */}
+          <div className="mac-nav-links" style={{ gap: "clamp(10px,2.4vw,30px)" }}>
             <a href="#about" style={{ textDecoration: "none", color: "#0c3a4d", fontWeight: 700, fontSize: "14px" }}>
               教室について
             </a>
@@ -500,7 +503,37 @@ export default function Home() {
               無料体験予約
             </Hoverable>
           </div>
+
+          {/* Hamburger — mobile only */}
+          <button
+            className="mac-hamburger"
+            onClick={() => setMobileMenuOpen((o) => !o)}
+            aria-label={mobileMenuOpen ? "メニューを閉じる" : "メニューを開く"}
+          >
+            {mobileMenuOpen ? (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M6 6l12 12M18 6L6 18" stroke="#0c3a4d" strokeWidth="2.2" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="#0c3a4d" strokeWidth="2.2" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
         </div>
+
+        {/* Mobile full-screen menu */}
+        {mobileMenuOpen && (
+          <div className="mac-mobile-menu">
+            <a href="#about" className="mac-mobile-link" onClick={() => setMobileMenuOpen(false)}>教室について</a>
+            <button className="mac-mobile-link" style={{ fontFamily: "'Zen Maru Gothic',sans-serif" }} onClick={() => { setMobileMenuOpen(false); openCoaches(); }}>コーチ</button>
+            <a href="#pricing" className="mac-mobile-link" onClick={() => setMobileMenuOpen(false)}>料金プラン</a>
+            <a href="#access" className="mac-mobile-link" onClick={() => setMobileMenuOpen(false)}>アクセス</a>
+            <button className="mac-mobile-cta" onClick={() => { setMobileMenuOpen(false); openTrial(); }}>
+              無料で体験・見学を予約する
+            </button>
+          </div>
+        )}
       </nav>
 
       {/* ===== HERO ===== */}
@@ -852,8 +885,10 @@ export default function Home() {
                 hoverStyle={{ transform: "translateY(-6px)", boxShadow: "0 22px 44px rgba(10,58,77,.16)" }}
               >
                 <div style={{ position: "absolute", top: "12px", right: "12px", zIndex: 2, background: "rgba(255,255,255,.92)", color: c.color, fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "11px", padding: "5px 11px", borderRadius: "999px", boxShadow: "0 4px 10px rgba(0,0,0,.12)" }}>定員20名</div>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/assets/${c.img}`} alt={c.title} style={{ width: "100%", height: "140px", display: "block", objectFit: "cover" }} />
+                <div style={{ background: c.tagBg, height: "180px", display: "flex", alignItems: "center", justifyContent: "center", padding: "12px 24px", overflow: "hidden" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/assets/${c.img}`} alt={c.title} style={{ height: "100%", width: "auto", maxWidth: "100%", objectFit: "contain", display: "block" }} />
+                </div>
                 <div style={{ padding: "22px 22px 24px", display: "flex", flexDirection: "column", flex: 1 }}>
                   <span style={{ display: "inline-block", background: c.tagBg, color: c.color, fontWeight: 800, fontSize: "11.5px", padding: "4px 12px", borderRadius: "999px", marginBottom: "9px", alignSelf: "flex-start" }}>{c.grade}</span>
                   <h3 style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "21px", margin: 0, color: c.color, lineHeight: 1.25 }}>{c.title}</h3>
@@ -1094,7 +1129,7 @@ export default function Home() {
       <footer style={{ background: "#0a3346", color: "#cfe3ec", padding: "40px clamp(18px,4vw,40px)" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", flexWrap: "wrap", gap: "20px", justifyContent: "space-between", alignItems: "center" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/miyata-logo-dark.png" alt="ミヤタアスリートクラブ" style={{ height: "88px", width: "auto", display: "block" }} />
+          <img src="/assets/miyata-logo-dark.png" alt="ミヤタアスリートクラブ" style={{ height: "clamp(64px,12vw,88px)", width: "auto", display: "block" }} />
           <div style={{ fontSize: "12.5px", color: "#8fb3c2" }}>コザ運動公園 陸上競技場（沖縄県沖縄市）／ 対象 小学生〜一般</div>
           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
             <Hoverable as="a" href="#" target="_blank" rel="noopener" aria-label="Instagram" baseStyle={{ width: "38px", height: "38px", borderRadius: "50%", background: "rgba(255,255,255,.08)", color: "#cfe3ec", display: "flex", alignItems: "center", justifyContent: "center", transition: "background .2s ease, color .2s ease" }} hoverStyle={{ background: accent, color: "#fff" }}>
