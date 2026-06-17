@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { margin:0; font-family:'Zen Kaku Gothic New', sans-serif; color:#0c3a4d; background:#ffffff; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  * { box-sizing:border-box; }
+  ::selection { background: rgba(255,106,61,.22); }
+  @keyframes kbZoom { from { transform: scale(1.03); } to { transform: scale(1.12); } }
+  @keyframes floatA { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+  @keyframes floatB { 0%,100% { transform: translateY(0); } 50% { transform: translateY(14px); } }
+  @keyframes sunGlow { 0%,100% { opacity:.85; transform: scale(1); } 50% { opacity:1; transform: scale(1.05); } }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes popIn { from { transform: scale(.94); opacity:0; } to { transform: scale(1); opacity:1; } }
+</style>
+</helmet>
+
+<div id="sponsor-page" style="position:relative; font-family:'Zen Kaku Gothic New',sans-serif; --accent:#ff6a3d; --ocean:#0a93c4;">
+
+  <!-- top bar -->
+  <nav style="position:sticky; top:0; z-index:80; background:rgba(255,255,255,.88); backdrop-filter:blur(12px); border-bottom:1px solid rgba(10,147,196,.12);">
+    <div style="max-width:1100px; margin:0 auto; padding:12px clamp(18px,4vw,40px); display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <a href="Koza Track Kids.dc.html" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+        <img src="miyata-logo-trans.png" alt="ミヤタアスリートクラブ" style="height:80px; width:auto; display:block;">
+        <div style="font-size:9.5px; letter-spacing:.16em; color:var(--ocean,#0a93c4); font-weight:700;">SPONSORSHIP</div>
+      </a>
+      <div style="display:flex; align-items:center; gap:16px;">
+        <a href="Koza Track Kids.dc.html" style="text-decoration:none; color:#5a7d8c; font-weight:700; font-size:13px;">← トップへ戻る</a>
+        <a href="#contact" style="text-decoration:none; font-family:'Zen Maru Gothic',sans-serif; background:var(--ocean,#0a93c4); color:#fff; font-weight:900; font-size:13px; padding:10px 18px; border-radius:999px; box-shadow:0 8px 18px rgba(10,147,196,.35);">お問い合わせ</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- hero -->
+  <header style="position:relative; overflow:hidden; background:linear-gradient(180deg,#0c3a4d 0%, #0a6f95 48%, #0a93c4 100%); padding:clamp(40px,6vw,80px) clamp(18px,4vw,40px) 0;">
+    <div style="position:absolute; top:-80px; right:-30px; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle, rgba(255,227,156,.45) 0%, rgba(255,227,156,0) 70%); animation:sunGlow 6s ease-in-out infinite; pointer-events:none;"></div>
+    <div style="position:absolute; top:120px; left:7%; width:130px; height:40px; background:rgba(255,255,255,.16); border-radius:40px; animation:floatA 9s ease-in-out infinite; pointer-events:none;"></div>
+
+    <div style="position:relative; z-index:2; max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(28px,4vw,52px); align-items:center; padding-bottom:90px;">
+      <div data-reveal="0">
+        <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.14); border:1.5px solid rgba(255,227,156,.4); padding:7px 16px; border-radius:999px; font-weight:800; font-size:12.5px; color:#ffe39c; margin-bottom:20px;">SPONSORSHIP ／ スポンサー募集</div>
+        <h1 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(28px,4.6vw,50px); line-height:1.3; margin:0 0 18px; color:#fff;">沖縄の子どもたちの<br>未来に、<span style="color:#ffe39c;">あなたの企業</span>の<br>名前を。</h1>
+        <p style="font-size:clamp(15px,1.7vw,17px); line-height:1.95; color:rgba(255,255,255,.9); margin:0 0 28px; max-width:30em;">地域のスポーツ振興と、子どもたちの健やかな成長。その応援に、企業として参加しませんか。ご協賛は、地域貢献（CSR）と企業PRを同時にかなえます。</p>
+        <div style="display:flex; flex-wrap:wrap; gap:13px;">
+          <a href="#contact" style="text-decoration:none; font-family:'Zen Maru Gothic',sans-serif; background:var(--accent,#ff6a3d); color:#fff; font-weight:900; font-size:16px; padding:16px 30px; border-radius:999px; box-shadow:0 14px 30px rgba(255,106,61,.42); display:inline-flex; align-items:center; gap:9px; transition:transform .2s ease;" style-hover="transform:translateY(-3px);">協賛のお問い合わせ<svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="#plans" style="text-decoration:none; font-family:'Zen Maru Gothic',sans-serif; background:rgba(255,255,255,.12); color:#fff; font-weight:800; font-size:15px; padding:15px 26px; border-radius:999px; border:2px solid rgba(255,255,255,.35);">協賛プランを見る</a>
+        </div>
+      </div>
+      <div data-reveal="160" style="position:relative;">
+        <div style="position:absolute; top:-20px; left:-12px; z-index:5; background:linear-gradient(150deg,#ffe39c,#ffcf5a); color:#0a3346; font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:13px; padding:11px 17px; border-radius:16px; box-shadow:0 12px 26px rgba(0,0,0,.25); animation:bob 3s ease-in-out infinite;">協賛企業 募集中</div>
+        <div style="width:100%; aspect-ratio:4/3; border-radius:26px; overflow:hidden; box-shadow:0 28px 56px rgba(0,0,0,.35); border:6px solid #fff;">
+          <div style="width:100%; height:100%; animation:kbZoom 8s ease forwards;"><image-slot id="sponsor-hero" style="width:100%; height:100%; display:block;" shape="rect" placeholder="大会・チームの写真"></image-slot></div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute; left:0; bottom:-1px; width:100%; line-height:0; pointer-events:none;"><svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="width:100%; height:84px; display:block;"><path d="M0,40 C240,110 480,110 720,70 C960,30 1200,30 1440,80 L1440,120 L0,120 Z" fill="#ffffff"/></svg></div>
+  </header>
+
+  <!-- impact -->
+  <section style="background:#ffffff; padding:clamp(36px,5vw,68px) clamp(18px,4vw,40px);">
+    <div data-reveal="0" style="max-width:780px; margin:0 auto; text-align:center;">
+      <div style="font-weight:900; letter-spacing:.2em; color:var(--accent,#ff6a3d); font-size:13px; margin-bottom:14px;">OUR VISION</div>
+      <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(22px,3vw,32px); line-height:1.5; margin:0 0 18px; color:#0a3346;">子どもの「走る」を支えることは、<br>地域の未来を育てること。</h2>
+      <p style="font-size:15.5px; line-height:2; color:#48707f; margin:0;">私たちは、コザ運動公園を拠点に、小学生から一般まで幅広い世代の陸上活動を応援しています。ご協賛いただいた資金は、子どもたちの活動環境の充実や、大会・記録会への挑戦を支えます。企業の皆さまの想いを、次の世代へとつなぎます。</p>
+    </div>
+  </section>
+
+  <!-- merits -->
+  <section style="background:linear-gradient(180deg,#ffffff,#f1fafe); padding:clamp(40px,6vw,76px) clamp(18px,4vw,40px);">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div data-reveal="0" style="text-align:center; margin-bottom:clamp(28px,4vw,44px);">
+        <div style="font-weight:900; letter-spacing:.2em; color:var(--accent,#ff6a3d); font-size:13px; margin-bottom:12px;">MERITS</div>
+        <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(24px,3.4vw,38px); margin:0; color:#0a3346;">協賛で得られる3つのメリット</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px;">
+        <sc-for list="{{ merits }}" as="m" hint-placeholder-count="3">
+          <div data-reveal="{{ m.delay }}" style="background:#fff; border:1.5px solid #e2f1f8; border-radius:22px; padding:30px 26px; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-6px); box-shadow:0 20px 40px rgba(10,147,196,.14);">
+            <div style="width:54px; height:54px; border-radius:16px; background:{{ m.bg }}; display:flex; align-items:center; justify-content:center; margin-bottom:16px;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="{{ m.icon }}" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:18px; margin:0 0 9px; color:#0a3346;">{{ m.title }}</h3>
+            <p style="margin:0; font-size:14px; line-height:1.85; color:#48707f;">{{ m.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- plans -->
+  <section id="plans" style="background:#ffffff; padding:clamp(40px,6vw,76px) clamp(18px,4vw,40px);">
+    <div style="max-width:1080px; margin:0 auto;">
+      <div data-reveal="0" style="text-align:center; margin-bottom:clamp(28px,4vw,44px);">
+        <div style="font-weight:900; letter-spacing:.2em; color:var(--accent,#ff6a3d); font-size:13px; margin-bottom:12px;">PLANS</div>
+        <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(24px,3.4vw,38px); margin:0 0 10px; color:#0a3346;">協賛プラン</h2>
+        <p style="margin:0; color:#48707f; font-size:14.5px;">ご予算・ご希望に合わせて選べます。記載は一例です。内容はお気軽にご相談ください。</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:22px; align-items:stretch;">
+        <sc-for list="{{ plans }}" as="p" hint-placeholder-count="3">
+          <div data-reveal="{{ p.delay }}" style="position:relative; background:{{ p.cardBg }}; border:2px solid {{ p.border }}; border-radius:24px; padding:32px 28px; display:flex; flex-direction:column; box-shadow:{{ p.shadow }}; transition:transform .3s ease;" style-hover="transform:translateY(-7px);">
+            <sc-if value="{{ p.featured }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--accent,#ff6a3d); color:#fff; font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:12px; padding:6px 16px; border-radius:999px; box-shadow:0 8px 18px rgba(255,90,43,.4); white-space:nowrap;">おすすめ</div>
+            </sc-if>
+            <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:20px; color:{{ p.title }};">{{ p.name }}</div>
+            <div style="display:flex; align-items:baseline; gap:4px; margin:16px 0 4px;">
+              <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:34px; color:{{ p.title }};">{{ p.price }}</span>
+              <span style="font-size:13px; color:{{ p.sub }}; font-weight:700;">/年（例）</span>
+            </div>
+            <div style="height:1px; background:{{ p.divider }}; margin:18px 0;"></div>
+            <ul style="list-style:none; padding:0; margin:0 0 24px; display:flex; flex-direction:column; gap:11px;">
+              <sc-for list="{{ p.features }}" as="f" hint-placeholder-count="4">
+                <li style="display:flex; align-items:flex-start; gap:9px; font-size:13.5px; color:{{ p.text }}; font-weight:600; line-height:1.6;">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="flex:none; margin-top:1px;"><circle cx="12" cy="12" r="10" fill="{{ p.tick }}"/><path d="M8 12.5l2.5 2.5L16 9" stroke="{{ p.tickStroke }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  {{ f }}
+                </li>
+              </sc-for>
+            </ul>
+            <a href="#contact" style="margin-top:auto; text-align:center; text-decoration:none; font-family:'Zen Maru Gothic',sans-serif; background:{{ p.btnBg }}; color:{{ p.btnColor }}; font-weight:900; font-size:15px; padding:14px; border-radius:999px; border:{{ p.btnBorder }}; transition:transform .2s ease;" style-hover="transform:scale(1.03);">このプランを相談する</a>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- placement images -->
+  <section style="background:linear-gradient(180deg,#ffffff,#eaf7fc); padding:clamp(40px,6vw,72px) clamp(18px,4vw,40px);">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div data-reveal="0" style="text-align:center; margin-bottom:clamp(26px,3vw,40px);">
+        <div style="font-weight:900; letter-spacing:.2em; color:var(--accent,#ff6a3d); font-size:13px; margin-bottom:12px;">EXAMPLES</div>
+        <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(24px,3.4vw,38px); margin:0; color:#0a3346;">ロゴ掲出のイメージ</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;">
+        <sc-for list="{{ placements }}" as="pl" hint-placeholder-count="3">
+          <div data-reveal="{{ pl.delay }}" style="background:#fff; border:1.5px solid #e2f1f8; border-radius:20px; overflow:hidden; box-shadow:0 14px 30px rgba(10,147,196,.08);">
+            <image-slot id="{{ pl.id }}" style="width:100%; height:170px; display:block;" shape="rect" placeholder="{{ pl.label }}"></image-slot>
+            <div style="padding:16px 18px;">
+              <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:15.5px; margin:0 0 4px; color:#0a3346;">{{ pl.label }}</h3>
+              <p style="margin:0; font-size:12.5px; color:#5a7d8c; line-height:1.6;">{{ pl.body }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- flow -->
+  <section style="background:#ffffff; padding:clamp(40px,6vw,72px) clamp(18px,4vw,40px);">
+    <div style="max-width:1000px; margin:0 auto;">
+      <div data-reveal="0" style="text-align:center; margin-bottom:clamp(28px,4vw,44px);">
+        <div style="font-weight:900; letter-spacing:.2em; color:var(--accent,#ff6a3d); font-size:13px; margin-bottom:12px;">FLOW</div>
+        <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(24px,3.4vw,38px); margin:0; color:#0a3346;">ご協賛までの流れ</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px;">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+          <div data-reveal="{{ st.delay }}" style="background:#f5fbfe; border:1.5px solid #e2f1f8; border-radius:20px; padding:26px 22px;">
+            <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:13px; color:var(--accent,#ff6a3d); margin-bottom:10px;">STEP {{ st.n }}</div>
+            <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:16px; margin:0 0 7px; color:#0a3346;">{{ st.title }}</h3>
+            <p style="margin:0; font-size:13px; line-height:1.7; color:#5a7d8c;">{{ st.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- contact -->
+  <section id="contact" style="position:relative; overflow:hidden; background:linear-gradient(160deg,#0c3a4d,#0a6f95 60%,#0a93c4); padding:clamp(44px,6vw,84px) clamp(18px,4vw,40px);">
+    <div style="position:absolute; top:-40px; right:-20px; width:200px; height:200px; border-radius:50%; background:rgba(255,255,255,.08);"></div>
+    <div data-reveal="0" style="position:relative; z-index:2; max-width:640px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:26px; color:#fff;">
+        <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(26px,3.8vw,40px); margin:0 0 10px;">協賛のお問い合わせ</h2>
+        <p style="margin:0; font-size:14.5px; line-height:1.8; opacity:.9;">資料送付・ご相談も歓迎です。まずはお気軽にどうぞ。</p>
+      </div>
+      <div style="background:#fff; border-radius:24px; box-shadow:0 26px 56px rgba(0,0,0,.3); padding:clamp(26px,4vw,38px);">
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center; padding:18px 6px;">
+            <div style="width:74px; height:74px; border-radius:50%; background:rgba(31,176,107,.14); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; animation:popIn .4s ease;"><svg width="38" height="38" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-11" stroke="#1fb06b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:22px; margin:0 0 10px; color:#0a3346;">お問い合わせありがとうございます！</h3>
+            <p style="font-size:14px; line-height:1.8; color:#48707f; margin:0;">担当者より2〜3営業日以内にご連絡いたします。どうぞよろしくお願いいたします。</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submit }}" style="display:flex; flex-direction:column; gap:15px;">
+            <sc-for list="{{ fields }}" as="f" hint-placeholder-count="4">
+              <label style="display:block;">
+                <span style="display:block; font-size:12.5px; font-weight:800; color:#33606f; margin-bottom:6px;">{{ f.label }}</span>
+                <input type="text" placeholder="{{ f.ph }}" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:13px 14px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe; transition:border .2s;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+              </label>
+            </sc-for>
+            <label style="display:block;">
+              <span style="display:block; font-size:12.5px; font-weight:800; color:#33606f; margin-bottom:6px;">ご興味のあるプラン・ご質問</span>
+              <textarea rows="3" placeholder="例）シルバープランに興味があります／資料がほしい など" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:13px 14px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe; resize:vertical;" style-focus="border:1.5px solid var(--ocean,#0a93c4);"></textarea>
+            </label>
+            <button type="submit" style="margin-top:6px; font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:var(--accent,#ff6a3d); color:#fff; font-weight:900; font-size:16px; padding:16px; border-radius:999px; box-shadow:0 12px 26px rgba(255,90,43,.34); transition:transform .2s ease;" style-hover="transform:translateY(-2px);">お問い合わせを送信する</button>
+          </form>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer style="background:#0a3346; color:#cfe3ec; padding:34px clamp(18px,4vw,40px); text-align:center;">
+    <div style="display:flex; justify-content:center; margin-bottom:14px;"><img src="miyata-logo-dark.png" alt="ミヤタアスリートクラブ" style="height:84px; width:auto; display:block;"></div>
+    <div style="font-size:12.5px; color:#8fb3c2; margin-bottom:14px;">コザ運動公園 陸上競技場（沖縄県沖縄市）</div>
+    <a href="Koza Track Kids.dc.html" style="text-decoration:none; color:#cfe3ec; font-weight:700; font-size:13px; border:1px solid rgba(255,255,255,.2); padding:9px 18px; border-radius:999px;">← トップページへ戻る</a>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#ff6a3d&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;ocean&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#0a93c4&quot;, &quot;tsType&quot;: &quot;string&quot; }
+}">
+class Component extends DCLogic {
+  state = { sent: false };
+
+  componentDidMount() {
+    this._root = document.getElementById('sponsor-page');
+    this.applyVars();
+  }
+  componentDidUpdate() { this.applyVars(); }
+  applyVars() {
+    if (!this._root) return;
+    if (this.props.accent) this._root.style.setProperty('--accent', this.props.accent);
+    if (this.props.ocean) this._root.style.setProperty('--ocean', this.props.ocean);
+  }
+  setupReveal() {
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    els.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(34px)'; el.style.transition = 'opacity .9s cubic-bezier(.2,.75,.2,1), transform .9s cubic-bezier(.2,.75,.2,1)'; });
+    const show = el => { const d = parseInt(el.getAttribute('data-reveal')) || 0; setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, d); };
+    if ('IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((ents) => { ents.forEach(e => { if (e.isIntersecting) { show(e.target); this._io.unobserve(e.target); } }); }, { threshold: 0.1, rootMargin: '0px 0px -7% 0px' });
+      els.forEach(el => this._io.observe(el));
+    } else { els.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; }); }
+    this._safety = setTimeout(() => els.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; }), 4800);
+  }
+  componentWillUnmount() { if (this._io) this._io.disconnect(); clearTimeout(this._safety); }
+
+  submit(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    try {
+      const els = e.target.querySelectorAll('input,textarea');
+      const v = (i) => els[i] ? els[i].value.trim() : '';
+      const d = new Date();
+      const rec = { id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), company: v(0), person: v(1), contact: v(2), message: v(3), date: d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(), createdAt: new Date().toISOString() };
+      const arr = JSON.parse(localStorage.getItem('miyata_sponsor') || '[]');
+      arr.push(rec); localStorage.setItem('miyata_sponsor', JSON.stringify(arr));
+    } catch (_) {}
+    this.setState({ sent: true });
+  }
+
+  renderVals() {
+    return {
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      submit: (e) => this.submit(e),
+      merits: [
+        { delay: '0', bg: 'linear-gradient(140deg,#0a93c4,#27c0e6)', icon: 'M4 7h16M4 12h16M4 17h10', title: 'ロゴ掲出・PR', body: 'ホームページ・ユニフォーム・大会横断幕などに企業ロゴを掲出。地域の方々の目に触れます。' },
+        { delay: '120', bg: 'linear-gradient(140deg,#1fb06b,#27c08a)', icon: 'M12 21s-7-5.2-7-10a7 7 0 1114 0c0 4.8-7 10-7 10zM12 8a3 3 0 100 6 3 3 0 000-6z', title: '地域貢献・CSR', body: '子どものスポーツ振興を支える社会貢献活動として、企業価値の向上につながります。' },
+        { delay: '240', bg: 'linear-gradient(140deg,#ff8a5c,#ff5a2b)', icon: 'M4 11a8 8 0 018-8M4 4v7h7M20 13a8 8 0 01-8 8M20 20v-7h-7', title: 'SNS・イベント露出', body: '教室の公式SNSやイベントで協賛企業としてご紹介。継続的な情報発信で認知を高めます。' },
+      ],
+      plans: [
+        {
+          delay: '0', name: 'ブロンズ', price: '¥30,000', featured: false,
+          cardBg: '#f7fbfd', border: '#e2f1f8', shadow: '0 14px 30px rgba(10,147,196,.08)',
+          title: '#0a3346', sub: '#5a7d8c', divider: '#e2f1f8', text: '#33606f',
+          tick: 'rgba(10,147,196,.14)', tickStroke: '#0a93c4',
+          btnBg: '#fff', btnColor: '#0a93c4', btnBorder: '2px solid rgba(10,147,196,.3)',
+          features: ['ホームページにロゴ掲載', '公式SNSで協賛企業として紹介', '活動報告レポートの送付'],
+        },
+        {
+          delay: '120', name: 'シルバー', price: '¥60,000', featured: true,
+          cardBg: '#f0f8fc', border: 'var(--ocean,#0a93c4)', shadow: '0 22px 46px rgba(10,147,196,.2)',
+          title: '#0a3346', sub: '#5a7d8c', divider: '#d4e9f3', text: '#33606f',
+          tick: 'rgba(10,147,196,.16)', tickStroke: '#0a93c4',
+          btnBg: 'var(--ocean,#0a93c4)', btnColor: '#fff', btnBorder: 'none',
+          features: ['ブロンズの特典すべて', 'ユニフォームにロゴ掲出', '大会・記録会の横断幕に掲出', 'イベントでの企業紹介'],
+        },
+        {
+          delay: '240', name: 'ゴールド', price: '¥120,000', featured: false,
+          cardBg: 'linear-gradient(165deg,#0c3a4d,#0a93c4)', border: 'transparent', shadow: '0 26px 52px rgba(10,58,77,.32)',
+          title: '#fff', sub: 'rgba(255,255,255,.8)', divider: 'rgba(255,255,255,.18)', text: 'rgba(255,255,255,.94)',
+          tick: 'rgba(255,227,156,.25)', tickStroke: '#ffe39c',
+          btnBg: 'var(--accent,#ff6a3d)', btnColor: '#fff', btnBorder: 'none',
+          features: ['シルバーの特典すべて', 'メインスポンサーとして大きく掲出', 'イベント・大会の冠協賛が可能', '専用の感謝状・年間報告', '個別のPRプランをご提案'],
+        },
+      ],
+      placements: [
+        { delay: '0', id: 'place-uniform', label: 'ユニフォーム', body: '選手が着用するウェアに企業ロゴを掲出します。' },
+        { delay: '120', id: 'place-banner', label: '大会横断幕', body: '大会・記録会の会場に横断幕としてロゴを掲出。' },
+        { delay: '240', id: 'place-web', label: 'Webサイト', body: '当クラブの公式サイト・LPにロゴとリンクを掲載。' },
+      ],
+      steps: [
+        { delay: '0', n: '01', title: 'お問い合わせ', body: '下のフォームよりご連絡ください。資料もお送りします。' },
+        { delay: '90', n: '02', title: 'ご相談・ご提案', body: 'ご予算・ご希望に合わせて最適なプランをご提案します。' },
+        { delay: '180', n: '03', title: 'ご契約', body: '内容にご納得いただけましたら、契約手続きへ進みます。' },
+        { delay: '270', n: '04', title: '掲出・活動開始', body: 'ロゴ掲出をスタート。活動報告も定期的にお届けします。' },
+      ],
+      fields: [
+        { label: '会社名・団体名', ph: '株式会社○○○○' },
+        { label: 'ご担当者名', ph: '宮田 太郎' },
+        { label: '電話番号 または メール', ph: 'info@example.com' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

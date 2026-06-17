@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; font-family:'Zen Kaku Gothic New', sans-serif; color:#0c3a4d; background:#eef3f6; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  ::selection { background: rgba(10,147,196,.18); }
+  @keyframes pulseDot { 0%,100%{ transform:scale(1); opacity:1; } 50%{ transform:scale(1.25); opacity:.7; } }
+</style>
+</helmet>
+
+<div id="admin" style="position:relative; min-height:100vh; font-family:'Zen Kaku Gothic New',sans-serif; --accent:#ff6a3d; --ocean:#0a93c4; background:#eef3f6;">
+
+  <!-- ===== LOGIN GATE ===== -->
+  <sc-if value="{{ showLogin }}" hint-placeholder-val="{{ true }}">
+    <div style="position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; overflow:hidden; background:linear-gradient(160deg,#0c3a4d 0%, #0a6f95 55%, #0a93c4 100%);">
+      <div style="position:absolute; top:-80px; right:-40px; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle, rgba(255,227,156,.28) 0%, rgba(255,227,156,0) 70%); pointer-events:none;"></div>
+      <div style="position:absolute; bottom:-90px; left:-50px; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,.06); pointer-events:none;"></div>
+      <div style="position:relative; z-index:2; width:100%; max-width:400px; background:#fff; border-radius:24px; box-shadow:0 30px 70px rgba(0,0,0,.32); padding:clamp(30px,5vw,40px) clamp(26px,4vw,36px);">
+        <div style="text-align:center; margin-bottom:24px;">
+          <img src="miyata-logo-trans.png" alt="ミヤタアスリートクラブ" style="height:64px; width:auto; display:block; margin:0 auto 16px;">
+          <h1 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:21px; margin:0 0 5px; color:#0a3346;">スタッフログイン</h1>
+          <p style="margin:0; font-size:12.5px; color:#5a7d8c;">管理ダッシュボードへのアクセスには認証が必要です</p>
+        </div>
+        <form onSubmit="{{ doLogin }}">
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <label style="display:block;">
+              <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:6px;">スタッフID</span>
+              <input name="loginId" type="text" autocomplete="off" placeholder="IDを入力" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:13px 14px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe; transition:border .2s;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+            </label>
+            <label style="display:block;">
+              <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:6px;">パスワード</span>
+              <div style="position:relative;">
+                <input name="loginPw" type="{{ pwType }}" autocomplete="off" placeholder="パスワードを入力" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:13px 46px 13px 14px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe; transition:border .2s;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                <button type="button" onClick="{{ togglePw }}" aria-label="パスワードを表示" style="position:absolute; top:50%; right:8px; transform:translateY(-50%); width:34px; height:34px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; color:#7c98a6;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">{{ eyeIcon }}</svg>
+                </button>
+              </div>
+            </label>
+          </div>
+          <sc-if value="{{ loginError }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:14px; background:#fff1ee; border:1px solid #ffd6cc; color:#d2453a; font-size:12.5px; font-weight:700; padding:10px 13px; border-radius:10px; display:flex; align-items:center; gap:7px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#d2453a" stroke-width="2"/><path d="M12 7v6M12 16.5v.5" stroke="#d2453a" stroke-width="2" stroke-linecap="round"/></svg>
+              IDまたはパスワードが違います
+            </div>
+          </sc-if>
+          <button type="submit" style="margin-top:22px; width:100%; font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:var(--ocean,#0a93c4); color:#fff; font-weight:900; font-size:16px; padding:15px; border-radius:999px; box-shadow:0 12px 26px rgba(10,147,196,.32); transition:transform .2s ease;" style-hover="transform:translateY(-2px);">ログイン</button>
+          <div style="text-align:center; margin-top:16px;">
+            <a href="Koza Track Kids.dc.html" style="color:#9bb2bc; text-decoration:none; font-size:12px; font-weight:700;">← サイトトップへ戻る</a>
+          </div>
+        </form>
+        <div style="margin-top:20px; padding-top:16px; border-top:1px dashed #e4ebef; text-align:center; font-size:11px; color:#9bb2bc; line-height:1.7;">関係者専用ページです。ID・パスワードは管理者にお問い合わせください。</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== DASHBOARD ===== -->
+  <sc-if value="{{ showDash }}" hint-placeholder-val="{{ false }}">
+
+  <!-- top bar -->
+  <nav style="position:sticky; top:0; z-index:30; background:#ffffff; border-bottom:1px solid #e4ebef; box-shadow:0 2px 12px rgba(10,58,77,.05);">
+    <div style="max-width:1240px; margin:0 auto; padding:11px clamp(16px,3vw,32px); display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <div style="display:flex; align-items:center; gap:14px;">
+        <img src="miyata-logo-trans.png" alt="ミヤタアスリートクラブ" style="height:46px; width:auto; display:block;">
+        <div style="height:30px; width:1px; background:#e4ebef;"></div>
+        <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:16px; color:#0a3346;">管理ダッシュボード</div>
+        <span style="background:#eef3f6; color:#5a7d8c; font-weight:800; font-size:10.5px; letter-spacing:.1em; padding:4px 9px; border-radius:6px;">STAFF</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <a href="Koza Track Kids.dc.html" style="text-decoration:none; color:#5a7d8c; font-weight:700; font-size:13px;">サイトを見る</a>
+        <button onClick="{{ logout }}" style="display:inline-flex; align-items:center; gap:6px; font-family:'Zen Maru Gothic',sans-serif; border:1.5px solid #f0d4cd; background:#fff; color:#c2491f; font-weight:800; font-size:13px; padding:9px 14px; border-radius:10px; cursor:pointer; transition:background .2s;" style-hover="background:#fff5f2;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M15 17l5-5-5-5M20 12H9M11 4H6a2 2 0 00-2 2v12a2 2 0 002 2h5" stroke="#c2491f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          ログアウト
+        </button>
+        <button onClick="{{ refresh }}" style="display:inline-flex; align-items:center; gap:7px; font-family:'Zen Maru Gothic',sans-serif; border:1.5px solid #d9e4ea; background:#fff; color:#0a3346; font-weight:800; font-size:13px; padding:9px 16px; border-radius:10px; cursor:pointer; transition:background .2s;" style-hover="background:#f5f9fb;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M20 11a8 8 0 10-2 5.3M20 20v-5h-5" stroke="#0a93c4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          更新
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main style="max-width:1240px; margin:0 auto; padding:clamp(20px,3vw,30px) clamp(16px,3vw,32px) 60px;">
+
+    <div style="margin-bottom:18px;">
+      <h1 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(22px,3vw,30px); margin:0 0 4px; color:#0a3346;">予約・申込管理</h1>
+      <div style="color:#5a7d8c; font-size:13.5px; font-weight:600;">本日 {{ todayLabel }} 時点 ／ 各フォームの申込を確認できます</div>
+    </div>
+
+    <!-- tabs -->
+    <div style="display:flex; flex-wrap:wrap; gap:4px; border-bottom:1px solid #e0e8ec; margin-bottom:24px;">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+        <button onClick="{{ t.onClick }}" style="{{ t.style }}">
+          <span>{{ t.label }}</span>
+          <sc-if value="{{ t.hasCount }}" hint-placeholder-val="{{ true }}">
+            <span style="{{ t.badgeStyle }}">{{ t.count }}</span>
+          </sc-if>
+          <sc-if value="{{ t.isNew }}" hint-placeholder-val="{{ false }}">
+            <span style="width:8px; height:8px; border-radius:50%; background:var(--accent,#ff6a3d); animation:pulseDot 1.4s ease-in-out infinite; box-shadow:0 0 0 3px rgba(255,106,61,.18);"></span>
+          </sc-if>
+        </button>
+      </sc-for>
+    </div>
+
+    <!-- ===== TAB: 体験予約 ===== -->
+    <sc-if value="{{ showTrial }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-bottom:26px;">
+        <sc-for list="{{ stats }}" as="st" hint-placeholder-count="4">
+          <div style="background:#fff; border:1px solid #e4ebef; border-radius:16px; padding:20px 22px; box-shadow:0 6px 18px rgba(10,58,77,.05);">
+            <div style="font-size:12.5px; color:#5a7d8c; font-weight:700; margin-bottom:8px;">{{ st.label }}</div>
+            <div style="display:flex; align-items:baseline; gap:5px;">
+              <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:34px; color:{{ st.c }}; line-height:1;">{{ st.value }}</span>
+              <span style="font-size:13px; color:#5a7d8c; font-weight:700;">{{ st.unit }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+        <div style="width:4px; height:18px; background:var(--ocean,#0a93c4); border-radius:2px;"></div>
+        <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:17px; margin:0; color:#0a3346;">日付ごとの名簿</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:16px;">
+        <sc-for list="{{ days }}" as="d" hint-placeholder-count="4">
+          <div style="background:#fff; border:1px solid #e4ebef; border-radius:18px; overflow:hidden; box-shadow:0 6px 18px rgba(10,58,77,.06);">
+            <div style="{{ d.headStyle }}">
+              <div style="padding:15px 18px; display:flex; align-items:center; gap:9px;">
+                <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:19px;">{{ d.label }}</span>
+                <span style="font-weight:800; font-size:13px; opacity:.85;">（{{ d.dow }}）</span>
+                <sc-if value="{{ d.isToday }}" hint-placeholder-val="{{ false }}"><span style="background:var(--accent,#ff6a3d); color:#fff; font-weight:900; font-size:10.5px; padding:3px 9px; border-radius:999px;">本日</span></sc-if>
+                <sc-if value="{{ d.closed }}" hint-placeholder-val="{{ false }}"><span style="background:rgba(154,167,174,.25); color:inherit; font-weight:800; font-size:10.5px; padding:3px 9px; border-radius:999px;">休講</span></sc-if>
+              </div>
+            </div>
+            <div style="padding:16px 18px 18px; display:flex; flex-direction:column; gap:14px;">
+              <div>
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:9px;">
+                  <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:13.5px; color:#0a3346;">体験者名簿</span>
+                  <span style="background:#fff1ea; color:var(--accent,#ff6a3d); font-weight:900; font-size:11.5px; padding:3px 10px; border-radius:999px;">{{ d.trialCount }}件</span>
+                </div>
+                <sc-if value="{{ d.hasTrials }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex; flex-direction:column; gap:7px;">
+                    <sc-for list="{{ d.trials }}" as="t" hint-placeholder-count="2">
+                      <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; background:#fbfdfe; border:1px solid #eef4f7; border-radius:11px; padding:10px 12px;">
+                        <div style="min-width:0;">
+                          <div style="font-weight:800; font-size:13.5px; color:#0a3346;">{{ t.name }}</div>
+                          <div style="font-size:11.5px; color:#7c98a6; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ t.contact }}</div>
+                        </div>
+                        <span style="flex:none; background:#eaf4fb; color:var(--ocean,#0a93c4); font-weight:800; font-size:11px; padding:3px 9px; border-radius:999px;">{{ t.gakunen }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ d.noTrials }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px; color:#9bb2bc; background:#f7fafb; border:1px dashed #e1e9ed; border-radius:11px; padding:11px 12px; text-align:center;">体験予約はありません</div></sc-if>
+              </div>
+              <div style="height:1px; background:#eef3f6;"></div>
+              <div>
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:9px;">
+                  <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:13.5px; color:#0a3346;">生徒名簿</span>
+                  <span style="background:#eaf4fb; color:var(--ocean,#0a93c4); font-weight:900; font-size:11.5px; padding:3px 10px; border-radius:999px;">{{ d.studentCount }}名</span>
+                </div>
+                <sc-if value="{{ d.closed }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px; color:#9bb2bc; background:#f7fafb; border:1px dashed #e1e9ed; border-radius:11px; padding:11px 12px; text-align:center;">休講日です</div></sc-if>
+                <sc-if value="{{ d.open }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex; flex-wrap:wrap; gap:7px;">
+                    <sc-for list="{{ d.students }}" as="s" hint-placeholder-count="4">
+                      <div style="display:flex; align-items:center; gap:7px; background:#fbfdfe; border:1px solid #eef4f7; border-radius:10px; padding:7px 11px;">
+                        <span style="font-weight:800; font-size:13px; color:#0a3346;">{{ s.name }}</span>
+                        <span style="font-size:10.5px; color:#7c98a6; font-weight:700;">{{ s.grade }}</span>
+                        <span style="background:{{ s.tagBg }}; color:{{ s.tagColor }}; font-weight:800; font-size:10px; padding:2px 7px; border-radius:6px;">{{ s.tag }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <!-- ===== TAB: 料金決済 ===== -->
+    <sc-if value="{{ showPay }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ hasPay }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px;">
+          <sc-for list="{{ payments }}" as="p" hint-placeholder-count="3">
+            <div style="background:#fff; border:1px solid #e4ebef; border-radius:18px; box-shadow:0 6px 18px rgba(10,58,77,.06); overflow:hidden;">
+              <div style="background:linear-gradient(135deg,#0c3a4d,#0a93c4); color:#fff; padding:16px 18px; display:flex; align-items:center; justify-content:space-between; gap:8px;">
+                <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:16px;">{{ p.plan }}</span>
+                <span style="background:rgba(255,255,255,.18); font-weight:800; font-size:13px; padding:4px 11px; border-radius:999px;">{{ p.price }}/月</span>
+              </div>
+              <div style="padding:16px 18px; display:flex; flex-direction:column; gap:9px;">
+                <div style="display:flex; justify-content:space-between; font-size:13.5px;"><span style="color:#7c98a6;">申込者</span><span style="font-weight:800; color:#0a3346;">{{ p.cardName }}</span></div>
+                <div style="display:flex; justify-content:space-between; font-size:13.5px;"><span style="color:#7c98a6;">初月請求</span><span style="font-weight:800; color:var(--accent,#ff6a3d);">{{ p.first }}</span></div>
+                <div style="display:flex; justify-content:space-between; font-size:13.5px;"><span style="color:#7c98a6;">決済日</span><span style="font-weight:700; color:#0a3346;">{{ p.dateLabel }}</span></div>
+                <div style="display:inline-flex; align-self:flex-start; align-items:center; gap:5px; margin-top:3px; background:#eafaf2; color:#1fb06b; font-weight:800; font-size:11px; padding:4px 10px; border-radius:999px;">決済完了</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noPay }}" hint-placeholder-val="{{ false }}"><div style="background:#fff; border:1px dashed #d8e3e9; border-radius:16px; padding:40px; text-align:center; color:#9bb2bc; font-size:14px;">決済（入会申込）はまだありません。</div></sc-if>
+    </sc-if>
+
+    <!-- ===== TAB: コーチ募集 ===== -->
+    <sc-if value="{{ showCoach }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ hasCoach }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:16px;">
+          <sc-for list="{{ coachApps }}" as="c" hint-placeholder-count="2">
+            <div style="background:#fff; border:1px solid #e4ebef; border-radius:18px; box-shadow:0 6px 18px rgba(10,58,77,.06); padding:18px 20px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px;">
+                <div style="display:flex; align-items:center; gap:9px;">
+                  <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:17px; color:#0a3346;">{{ c.name }}</span>
+                  <span style="background:#eaf4fb; color:var(--ocean,#0a93c4); font-weight:800; font-size:11px; padding:3px 9px; border-radius:999px;">{{ c.age }}</span>
+                </div>
+                <span style="color:#9bb2bc; font-size:11.5px; font-weight:700;">{{ c.dateLabel }}</span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:9px;">
+                <div><div style="font-size:11px; font-weight:800; color:#9bb2bc; letter-spacing:.05em; margin-bottom:2px;">経験</div><div style="font-size:13.5px; color:#33606f;">{{ c.experience }}</div></div>
+                <div><div style="font-size:11px; font-weight:800; color:#9bb2bc; letter-spacing:.05em; margin-bottom:2px;">志望動機</div><div style="font-size:13.5px; color:#33606f; line-height:1.7;">{{ c.motivation }}</div></div>
+              </div>
+              <div style="margin-top:13px; padding-top:11px; border-top:1px solid #eef3f6; font-size:12.5px; color:#5a7d8c; font-weight:700;">連絡先：{{ c.contact }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noCoach }}" hint-placeholder-val="{{ false }}"><div style="background:#fff; border:1px dashed #d8e3e9; border-radius:16px; padding:40px; text-align:center; color:#9bb2bc; font-size:14px;">コーチ募集への応募はまだありません。</div></sc-if>
+    </sc-if>
+
+    <!-- ===== TAB: スポンサー募集 ===== -->
+    <sc-if value="{{ showSponsor }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ hasSponsor }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:16px;">
+          <sc-for list="{{ sponsors }}" as="s" hint-placeholder-count="2">
+            <div style="background:#fff; border:1px solid #e4ebef; border-radius:18px; box-shadow:0 6px 18px rgba(10,58,77,.06); padding:18px 20px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px;">
+                <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:16px; color:#0a3346;">{{ s.company }}</span>
+                <span style="color:#9bb2bc; font-size:11.5px; font-weight:700;">{{ s.dateLabel }}</span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:9px;">
+                <div style="display:flex; justify-content:space-between; font-size:13.5px;"><span style="color:#7c98a6;">ご担当</span><span style="font-weight:800; color:#0a3346;">{{ s.person }}</span></div>
+                <div><div style="font-size:11px; font-weight:800; color:#9bb2bc; letter-spacing:.05em; margin-bottom:2px;">ご質問・ご興味</div><div style="font-size:13.5px; color:#33606f; line-height:1.7;">{{ s.message }}</div></div>
+              </div>
+              <div style="margin-top:13px; padding-top:11px; border-top:1px solid #eef3f6; font-size:12.5px; color:#5a7d8c; font-weight:700;">連絡先：{{ s.contact }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noSponsor }}" hint-placeholder-val="{{ false }}"><div style="background:#fff; border:1px dashed #d8e3e9; border-radius:16px; padding:40px; text-align:center; color:#9bb2bc; font-size:14px;">スポンサー募集へのお問い合わせはまだありません。</div></sc-if>
+    </sc-if>
+
+    <!-- ===== TAB: 退会申請 ===== -->
+    <sc-if value="{{ showWithdraw }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ hasWithdraw }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:16px;">
+          <sc-for list="{{ withdraws }}" as="w" hint-placeholder-count="2">
+            <div style="background:#fff; border:1px solid #e4ebef; border-radius:18px; box-shadow:0 6px 18px rgba(10,58,77,.06); padding:18px 20px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px;">
+                <div style="display:flex; align-items:center; gap:9px;">
+                  <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:16px; color:#0a3346;">{{ w.name }}</span>
+                  <span style="background:#f0f2f4; color:#5a7d8c; font-weight:800; font-size:11px; padding:3px 9px; border-radius:999px;">{{ w.course }}</span>
+                </div>
+                <span style="color:#9bb2bc; font-size:11.5px; font-weight:700;">{{ w.dateLabel }}</span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:9px;">
+                <div style="display:flex; justify-content:space-between; font-size:13.5px;"><span style="color:#7c98a6;">退会希望月</span><span style="font-weight:800; color:#c2491f;">{{ w.month }}</span></div>
+                <div><div style="font-size:11px; font-weight:800; color:#9bb2bc; letter-spacing:.05em; margin-bottom:2px;">退会理由</div><div style="font-size:13.5px; color:#33606f; line-height:1.7;">{{ w.reason }}</div></div>
+              </div>
+              <div style="margin-top:13px; padding-top:11px; border-top:1px solid #eef3f6; font-size:12.5px; color:#5a7d8c; font-weight:700;">連絡先：{{ w.contact }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noWithdraw }}" hint-placeholder-val="{{ false }}"><div style="background:#fff; border:1px dashed #d8e3e9; border-radius:16px; padding:40px; text-align:center; color:#9bb2bc; font-size:14px;">退会申請はまだありません。</div></sc-if>
+    </sc-if>
+
+    <p style="text-align:center; color:#9bb2bc; font-size:12px; margin:28px 0 0;">＊各データはサイトのフォーム送信内容をこの端末に保存して表示しています（デモ）。新着がある項目にはタブに通知が表示されます。</p>
+  </main>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#ff6a3d&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;ocean&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#0a93c4&quot;, &quot;tsType&quot;: &quot;string&quot; }
+}">
+class Component extends DCLogic {
+  state = { tab: 'trial', tick: 0, authed: false, loginError: false, showPw: false };
+
+  _students = [
+    { n: '比嘉 蓮', g: '小2', c: 'low' }, { n: '金城 陽菜', g: '小1', c: 'low' }, { n: '大城 颯', g: '小3', c: 'low' }, { n: '島袋 さくら', g: '小2', c: 'low' },
+    { n: '宮里 結愛', g: '小5', c: 'high' }, { n: '新垣 大輔', g: '小4', c: 'high' }, { n: '上原 美月', g: '小6', c: 'high' }, { n: '山城 楓', g: '小5', c: 'high' },
+    { n: '仲村 海斗', g: '中2', c: 'adv' }, { n: '玉城 莉子', g: '中1', c: 'adv' }, { n: '下地 翔太', g: '中3', c: 'adv' }, { n: '平良 健', g: '高1', c: 'adv' },
+  ];
+
+  componentDidMount() { this._seedAll(); this.applyVars(); this._markViewed('trial'); try { this.state.authed = sessionStorage.getItem('miyata_staff_auth') === '1'; } catch (_) {} this.forceUpdate(); }
+  componentDidUpdate() { this.applyVars(); }
+  applyVars() { const r = document.getElementById('admin'); if (!r) return; if (this.props.accent) r.style.setProperty('--accent', this.props.accent); if (this.props.ocean) r.style.setProperty('--ocean', this.props.ocean); }
+
+  _today() { const d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+  _iso(d) { return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+  _get(k) { try { return JSON.parse(localStorage.getItem(k) || '[]'); } catch (_) { return []; } }
+  _set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (_) {} }
+  _counts() { return { trial: this._get('miyata_entries').length, pay: this._get('miyata_payments').length, coach: this._get('miyata_coach').length, sponsor: this._get('miyata_sponsor').length, withdraw: this._get('miyata_withdraw').length }; }
+  _viewed() { try { return JSON.parse(localStorage.getItem('miyata_viewed') || '{}'); } catch (_) { return {}; } }
+  _markViewed(tab) { const v = this._viewed(); v[tab] = this._counts()[tab]; this._set('miyata_viewed', v); }
+  setTab(t) { this._markViewed(t); this.setState({ tab: t }); }
+  togglePw() { this.setState({ showPw: !this.state.showPw }); }
+  doLogin(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const f = e.target;
+    const id = ((f.querySelector('[name="loginId"]') || {}).value || '').trim();
+    const pw = ((f.querySelector('[name="loginPw"]') || {}).value || '').trim();
+    if (id === 'Miyata' && pw === 'Miyata0305') {
+      try { sessionStorage.setItem('miyata_staff_auth', '1'); } catch (_) {}
+      this.setState({ authed: true, loginError: false });
+    } else {
+      this.setState({ loginError: true });
+    }
+  }
+  logout() {
+    try { sessionStorage.removeItem('miyata_staff_auth'); } catch (_) {}
+    this.setState({ authed: false, loginError: false });
+  }
+  refresh() { this.setState({ tick: this.state.tick + 1 }); }
+
+  _dlabel(rec) {
+    const s = rec.date || rec.createdAt;
+    if (!s) return '—';
+    if (rec.date) { const p = rec.date.split('-').map(Number); return p[1] + '/' + p[2]; }
+    const d = new Date(s); return (d.getMonth() + 1) + '/' + d.getDate();
+  }
+
+  _seedAll() {
+    const today = this._today();
+    if (!localStorage.getItem('miyata_entries')) {
+      const offs = []; for (let i = 1; i < 14; i++) { const d = new Date(today); d.setDate(d.getDate() + i); const w = d.getDay(); if (w !== 0 && w !== 2 && w !== 6) offs.push(i); }
+      const samples = [['宮城', '翔', '小学2年生', '090-1234-5678'], ['喜納', '美咲', '小学4年生', 'misaki@example.com'], ['比嘉', '大和', '小学1年生', '090-2222-3333'], ['玉城', '陽葵', '中学1年生', 'himari@example.com'], ['仲間', '颯太', '小学5年生', '090-4444-5555'], ['島袋', '凛', '小学3年生', '090-7777-8888']];
+      this._set('miyata_entries', samples.map((s, i) => { const d = new Date(today); d.setDate(d.getDate() + offs[i % offs.length]); const mail = s[3].indexOf('@') >= 0; return { id: 'se' + i, date: this._iso(d), sei: s[0], mei: s[1], gakunen: s[2], tel: mail ? '' : s[3], email: mail ? s[3] : '', createdAt: new Date().toISOString() }; }));
+    }
+    if (!localStorage.getItem('miyata_payments')) {
+      this._set('miyata_payments', [
+        { id: 'sp0', plan: '小学生コース', price: '¥6,600', first: '¥11,000', cardName: '宮城 太郎', date: this._iso(today), createdAt: new Date().toISOString() },
+        { id: 'sp1', plan: 'アスリート育成コース', price: '¥9,900', first: '¥14,300', cardName: '下地 一郎', date: this._iso(today), createdAt: new Date().toISOString() },
+      ]);
+    }
+    if (!localStorage.getItem('miyata_coach')) {
+      this._set('miyata_coach', [
+        { id: 'sc0', name: '比嘉 健太', age: '28歳', experience: '学生時代に短距離（100m）', motivation: '子どもが好きで、走る楽しさを伝えたいです。', contact: '090-1111-2222', date: this._iso(today), createdAt: new Date().toISOString() },
+        { id: 'sc1', name: '金城 美優', age: '24歳', experience: '未経験／幼児体育の資格あり', motivation: '運動が苦手な子のサポートがしたいです。', contact: 'miyu@example.com', date: this._iso(today), createdAt: new Date().toISOString() },
+      ]);
+    }
+    if (!localStorage.getItem('miyata_sponsor')) {
+      this._set('miyata_sponsor', [
+        { id: 'ss0', company: '株式会社うみかぜ', person: '金城 部長', message: 'シルバープランに興味があります。資料をいただけますか。', contact: 'info@umikaze.example', date: this._iso(today), createdAt: new Date().toISOString() },
+        { id: 'ss1', company: 'コザ電器', person: '新垣 様', message: 'ユニフォーム掲出について相談したいです。', contact: '098-000-0000', date: this._iso(today), createdAt: new Date().toISOString() },
+      ]);
+    }
+  }
+
+  renderVals() {
+    const tab = this.state.tab;
+    const counts = this._counts();
+    const viewed = this._viewed();
+    const tabDefs = [
+      { key: 'trial', label: '体験・見学予約', count: counts.trial },
+      { key: 'pay', label: '料金決済（入会）', count: counts.pay },
+      { key: 'coach', label: 'コーチ募集', count: counts.coach },
+      { key: 'sponsor', label: 'スポンサー募集', count: counts.sponsor },
+      { key: 'withdraw', label: '退会申請', count: counts.withdraw },
+    ];
+    const tabs = tabDefs.map(t => {
+      const active = tab === t.key;
+      return {
+        label: t.label, count: t.count, hasCount: t.count > 0,
+        isNew: t.count > (viewed[t.key] || 0),
+        onClick: () => this.setTab(t.key),
+        style: { position: 'relative', display: 'inline-flex', alignItems: 'center', gap: '8px', border: 'none', background: 'transparent', cursor: 'pointer', fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: '14.5px', padding: '12px 16px', color: active ? '#0a3346' : '#8aa3af', borderBottom: active ? '2.5px solid var(--ocean,#0a93c4)' : '2.5px solid transparent', marginBottom: '-1px' },
+        badgeStyle: { background: active ? 'var(--ocean,#0a93c4)' : '#dde7ec', color: active ? '#fff' : '#5a7d8c', fontWeight: 900, fontSize: '11px', minWidth: '20px', textAlign: 'center', padding: '2px 7px', borderRadius: '999px' },
+      };
+    });
+
+    // trial tab data
+    const entries = this._get('miyata_entries');
+    const today = this._today();
+    const wk = ['日', '月', '火', '水', '木', '金', '土'];
+    const cm = { low: { label: '低学年', color: '#0a7d4f', bg: '#e9f8f0', days: [1, 4] }, high: { label: '高学年', color: '#c2491f', bg: '#fff0ea', days: [3, 5] }, adv: { label: 'アスリート育成', color: '#0a5f8a', bg: '#e9f3fb', days: [1, 3, 5] } };
+    const days = []; let weekTrials = 0;
+    for (let i = 0; i < 14; i++) {
+      const d = new Date(today); d.setDate(d.getDate() + i);
+      const w = d.getDay(); const iso = this._iso(d); const closed = (w === 0 || w === 2 || w === 6);
+      const trials = entries.filter(e => e.date === iso).map(e => ({ name: ((e.sei || '') + ' ' + (e.mei || '')).trim() || '(無記名)', gakunen: e.gakunen || '—', contact: e.tel || e.email || '—' }));
+      const studs = closed ? [] : this._students.filter(s => cm[s.c].days.includes(w)).map(s => ({ name: s.n, grade: s.g, tag: cm[s.c].label, tagColor: cm[s.c].color, tagBg: cm[s.c].bg }));
+      if (i < 7) weekTrials += trials.length;
+      days.push({ label: (d.getMonth() + 1) + '/' + d.getDate(), dow: wk[w], isToday: i === 0, closed, open: !closed, trials, students: studs, trialCount: trials.length, studentCount: studs.length, hasTrials: trials.length > 0, noTrials: trials.length === 0, headStyle: i === 0 ? { background: 'linear-gradient(135deg,#0a3346,#0a93c4)', color: '#ffffff' } : { background: '#f5f9fb', color: '#0a3346' } });
+    }
+
+    const payments = this._get('miyata_payments').slice().reverse().map(p => ({ plan: p.plan || '—', price: p.price || '', first: p.first || '', cardName: p.cardName || '(未記入)', dateLabel: this._dlabel(p) }));
+    const coachApps = this._get('miyata_coach').slice().reverse().map(c => ({ name: c.name || '(未記入)', age: c.age || '—', experience: c.experience || '—', motivation: c.motivation || '—', contact: c.contact || '—', dateLabel: this._dlabel(c) }));
+    const sponsors = this._get('miyata_sponsor').slice().reverse().map(s => ({ company: s.company || '(未記入)', person: s.person || '—', message: s.message || '—', contact: s.contact || '—', dateLabel: this._dlabel(s) }));
+    const withdraws = this._get('miyata_withdraw').slice().reverse().map(w => ({ name: w.name || '(未記入)', course: w.course || '—', month: w.month || '—', reason: w.reason || '—', contact: w.contact || '—', dateLabel: this._dlabel(w) }));
+    return {
+      showLogin: !this.state.authed,
+      showDash: this.state.authed,
+      loginError: this.state.loginError,
+      pwType: this.state.showPw ? 'text' : 'password',
+      eyeIcon: this.state.showPw
+        ? React.createElement('g', { stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round', fill: 'none' },
+            React.createElement('path', { key: 'a', d: 'M3 3l18 18' }),
+            React.createElement('path', { key: 'b', d: 'M10.6 10.6a2 2 0 002.8 2.8' }),
+            React.createElement('path', { key: 'c', d: 'M9.4 5.2A9.5 9.5 0 0112 5c5 0 9 4.5 9 7-.5 1-1.4 2.3-2.7 3.4M6.2 6.2C3.9 7.6 2.5 9.8 2 12c.7 1.5 2.3 3.7 4.8 5' }))
+        : React.createElement('g', { stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round', fill: 'none' },
+            React.createElement('path', { key: 'a', d: 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z' }),
+            React.createElement('circle', { key: 'b', cx: 12, cy: 12, r: 3 })),
+      togglePw: () => this.togglePw(),
+      doLogin: (e) => this.doLogin(e),
+      logout: () => this.logout(),
+      todayLabel: (today.getMonth() + 1) + '月' + today.getDate() + '日（' + wk[today.getDay()] + '）',
+      refresh: () => this.refresh(),
+      tabs,
+      showTrial: tab === 'trial', showPay: tab === 'pay', showCoach: tab === 'coach', showSponsor: tab === 'sponsor', showWithdraw: tab === 'withdraw',
+      days,
+      stats: [
+        { label: '本日の体験予約', value: days[0].trialCount, unit: '件', c: 'var(--accent,#ff6a3d)' },
+        { label: '今週の体験予約', value: weekTrials, unit: '件', c: 'var(--ocean,#0a93c4)' },
+        { label: '在籍生徒', value: this._students.length, unit: '名', c: '#1fb06b' },
+        { label: '体験申込 累計', value: entries.length, unit: '件', c: '#5b4fa3' },
+      ],
+      payments, hasPay: payments.length > 0, noPay: payments.length === 0,
+      coachApps, hasCoach: coachApps.length > 0, noCoach: coachApps.length === 0,
+      sponsors, hasSponsor: sponsors.length > 0, noSponsor: sponsors.length === 0,
+      withdraws, hasWithdraw: withdraws.length > 0, noWithdraw: withdraws.length === 0,
+    };
+  }
+}
+</script>
+</body>
+</html>

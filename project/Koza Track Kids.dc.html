@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  body { margin:0; font-family:'Zen Kaku Gothic New', sans-serif; color:#0c3a4d; background:#ffffff; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden; }
+  * { box-sizing:border-box; }
+  ::selection { background: rgba(255,106,61,.22); }
+  @keyframes kenburns { from { transform: scale(1.02); } to { transform: scale(1.14); } }
+  @keyframes pulseRing { 0% { transform: scale(.82); opacity:.55; } 100% { transform: scale(1.7); opacity:0; } }
+  @keyframes floatA { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-22px); } }
+  @keyframes floatB { 0%,100% { transform: translateY(0) translateX(0); } 50% { transform: translateY(16px) translateX(-12px); } }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  @keyframes sunGlow { 0%,100% { opacity:.85; transform: scale(1); } 50% { opacity:1; transform: scale(1.05); } }
+  @keyframes sheen { 0% { transform: translateX(-120%); } 60%,100% { transform: translateX(220%); } }
+  @keyframes waveDrift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes popIn { from { transform: scale(.92); opacity:0; } to { transform: scale(1); opacity:1; } }
+  @keyframes runBob { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-9px) rotate(1.5deg); } }
+  @keyframes hurdleHop { 0% { transform: translate(0,0) rotate(-2deg); } 40% { transform: translate(6%,-48px) rotate(5deg); } 70% { transform: translate(12%,0) rotate(-1deg); } 100% { transform: translate(0,0) rotate(-2deg); } }
+  @keyframes longJump { 0% { transform: translate(0,0) rotate(-3deg); } 16% { transform: translate(-12%,2px) rotate(-6deg); } 46% { transform: translate(14%,-60px) rotate(8deg); } 64% { transform: translate(26%,8px) rotate(2deg); } 100% { transform: translate(0,0) rotate(-3deg); } }
+  @keyframes streakMove { 0% { transform: translateX(40px); opacity:0; } 25% { opacity:.85; } 100% { transform: translateX(-230px); opacity:0; } }
+</style>
+</helmet>
+
+<div id="koza-lp" style="position:relative; font-family:'Zen Kaku Gothic New',sans-serif; --accent:#ff6a3d; --ocean:#0a93c4;">
+
+  <!-- ===== NAV ===== -->
+  <nav id="lp-nav" style="position:fixed; top:0; left:0; width:100%; z-index:90; transition:background .35s ease, box-shadow .35s ease, backdrop-filter .35s ease;">
+    <div style="max-width:1200px; margin:0 auto; padding:14px clamp(18px,4vw,40px); display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <a href="#top" style="display:flex; align-items:center; text-decoration:none;">
+        <img src="miyata-logo-trans.png" alt="ミヤタアスリートクラブ" style="height:92px; width:auto; display:block;">
+      </a>
+      <div style="display:flex; align-items:center; gap:clamp(10px,2.4vw,30px);">
+        <a href="#about" style="text-decoration:none; color:#0c3a4d; font-weight:700; font-size:14px;">教室について</a>
+        <button onClick="{{ openCoaches }}" style="border:none; background:none; cursor:pointer; padding:0; color:#0c3a4d; font-weight:700; font-size:14px; font-family:'Zen Kaku Gothic New',sans-serif;">コーチ</button>
+        <a href="#pricing" style="text-decoration:none; color:#0c3a4d; font-weight:700; font-size:14px;">料金</a>
+        <a href="#access" style="text-decoration:none; color:#0c3a4d; font-weight:700; font-size:14px;">アクセス</a>
+        <button onClick="{{ openTrial }}" style="font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:var(--accent,#ff6a3d); color:#fff; font-weight:900; font-size:14px; padding:11px 20px; border-radius:999px; box-shadow:0 8px 20px rgba(255,106,61,.38); transition:transform .2s ease, box-shadow .2s ease;" style-hover="transform:translateY(-2px); box-shadow:0 12px 26px rgba(255,106,61,.5);">無料体験予約</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header id="top" style="position:relative; padding:118px clamp(18px,4vw,40px) 0; background:linear-gradient(180deg,#7fcdef 0%, #a6e0f2 42%, #d8f3fb 78%, #ffffff 100%); overflow:hidden;">
+    <!-- sun -->
+    <div style="position:absolute; top:-90px; right:-40px; width:330px; height:330px; border-radius:50%; background:radial-gradient(circle, #fff4d6 0%, #ffe39c 45%, rgba(255,227,156,0) 70%); animation:sunGlow 6s ease-in-out infinite; pointer-events:none;"></div>
+    <!-- clouds -->
+    <div style="position:absolute; top:120px; left:6%; width:150px; height:46px; background:#ffffff; border-radius:40px; filter:blur(.4px); opacity:.9; animation:floatA 9s ease-in-out infinite; pointer-events:none;"></div>
+    <div style="position:absolute; top:200px; left:30%; width:90px; height:30px; background:#ffffff; border-radius:30px; opacity:.75; animation:floatB 11s ease-in-out infinite; pointer-events:none;"></div>
+    <div style="position:absolute; top:96px; right:30%; width:110px; height:34px; background:#ffffff; border-radius:30px; opacity:.8; animation:floatA 12s ease-in-out infinite; pointer-events:none;"></div>
+
+    <div style="position:relative; z-index:2; max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:clamp(28px,4vw,56px); align-items:center; padding-bottom:90px;">
+      <!-- left copy -->
+      <div data-reveal="0">
+        <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.7); border:1.5px solid rgba(10,147,196,.25); padding:8px 16px; border-radius:999px; font-weight:800; font-size:13px; color:var(--ocean,#0a93c4); margin-bottom:22px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5.2-7-10a7 7 0 1114 0c0 4.8-7 10-7 10z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="11" r="2.4" stroke="currentColor" stroke-width="2"/></svg>
+          コザ運動公園 陸上競技場
+        </div>
+        <h1 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(34px,5.4vw,60px); line-height:1.18; margin:0 0 18px; color:#0a3346; letter-spacing:.01em;">
+          走るって、<br><span style="color:var(--ocean,#0a93c4);">こんなに楽しい。</span>
+        </h1>
+        <p style="font-size:clamp(15px,1.7vw,18px); line-height:1.9; color:#326073; margin:0 0 30px; max-width:30em;">
+          沖縄の青空の下で、かけっこが得意になる。小学生から一般まで通える陸上教室。専門コーチが「走る・跳ぶ」の基礎から、楽しく丁寧に教えます。
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center;">
+          <button onClick="{{ openTrial }}" style="font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:var(--accent,#ff6a3d); color:#fff; font-weight:900; font-size:17px; padding:17px 32px; border-radius:999px; box-shadow:0 14px 30px rgba(255,106,61,.4); display:inline-flex; align-items:center; gap:10px; transition:transform .2s ease, box-shadow .2s ease;" style-hover="transform:translateY(-3px); box-shadow:0 18px 38px rgba(255,106,61,.52);">
+            無料で体験・見学を予約する
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <a href="#pricing" style="text-decoration:none; font-family:'Zen Maru Gothic',sans-serif; background:#fff; color:var(--ocean,#0a93c4); font-weight:800; font-size:16px; padding:16px 28px; border-radius:999px; border:2px solid rgba(10,147,196,.25); box-shadow:0 8px 20px rgba(10,147,196,.12); transition:transform .2s ease;" style-hover="transform:translateY(-2px);">料金プランを見る</a>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:18px; margin-top:26px;">
+          <div style="display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:700; color:#2e5d70;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="rgba(31,176,107,.16)"/><path d="M8 12.5l2.5 2.5L16 9" stroke="#1fb06b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            定員20名で安心
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:700; color:#2e5d70;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="rgba(31,176,107,.16)"/><path d="M8 12.5l2.5 2.5L16 9" stroke="#1fb06b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            手ぶらでOK・まずは体験から
+          </div>
+        </div>
+      </div>
+
+      <!-- right slideshow -->
+      <div data-reveal="180" style="position:relative;">
+        <!-- free badge -->
+        <div style="position:absolute; top:-26px; right:-12px; z-index:6; width:118px; height:118px; pointer-events:none;">
+          <div style="position:absolute; inset:0; border-radius:50%; background:var(--accent,#ff6a3d); animation:pulseRing 2.4s ease-out infinite;"></div>
+          <div style="position:absolute; inset:0; border-radius:50%; background:var(--accent,#ff6a3d); animation:pulseRing 2.4s ease-out infinite 1.2s;"></div>
+          <div onClick="{{ openTrial }}" role="button" aria-label="体験・見学を無料で予約する" style="position:absolute; inset:0; border-radius:50%; background:linear-gradient(150deg,#ff7d4a,#ff5a2b); display:flex; flex-direction:column; align-items:center; justify-content:center; color:#fff; box-shadow:0 12px 26px rgba(255,90,43,.45); animation:bob 3s ease-in-out infinite; pointer-events:auto; cursor:pointer; transition:transform .2s ease;" style-hover="transform:scale(1.06);">
+            <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:11px; letter-spacing:.02em;">体験・見学</span>
+            <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:25px; line-height:1; margin-top:1px;">無料</span>
+          </div>
+        </div>
+
+        <div style="position:relative; width:100%; aspect-ratio:4/3; border-radius:28px; overflow:hidden; box-shadow:0 30px 60px rgba(11,58,77,.28); border:6px solid #fff; background:#cdeefa;">
+          <video src="intro-video.mp4" autoplay muted loop playsinline controls preload="metadata" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;"></video>
+        </div>
+        <div style="text-align:center; margin-top:14px; font-size:12px; color:#5a7d8c; font-weight:600; font-family:'Zen Kaku Gothic New',sans-serif;">＊コザ運動公園 陸上競技場での練習風景</div>
+      </div>
+    </div>
+
+    <!-- wave divider -->
+    <div style="position:absolute; left:0; bottom:-1px; width:100%; line-height:0; pointer-events:none;">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="width:100%; height:90px; display:block;"><path d="M0,40 C240,110 480,110 720,70 C960,30 1200,30 1440,80 L1440,120 L0,120 Z" fill="#ffffff"/></svg>
+    </div>
+  </header>
+
+  <!-- ===== OUR COMMITMENT ===== -->
+  <section style="background:#ffffff; padding:clamp(44px,7vw,88px) clamp(18px,4vw,40px) clamp(8px,2vw,20px);">
+    <div style="max-width:1080px; margin:0 auto;">
+      <div data-reveal="0" style="text-align:center; margin-bottom:clamp(30px,4vw,48px);">
+        <div style="font-weight:900; letter-spacing:.2em; color:var(--accent,#ff6a3d); font-size:13px; margin-bottom:14px;">OUR COMMITMENT</div>
+        <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(26px,4vw,44px); margin:0 0 18px; color:#0a3346; line-height:1.32;">“ひとくくり”に、<br>しない。</h2>
+        <p style="max-width:33em; margin:0 auto; font-size:clamp(14.5px,1.7vw,16.5px); line-height:2; color:#48707f;">多くの教室では、はば広い年齢の子どもたちをまとめて指導します。けれど、5歳と中学生では、伸ばすべき力も、体の使い方もまるで違う。だから私たちは、あえて<b style="color:#0a3346;">学年・成長段階で3つのコースに分け</b>、人数をしぼって指導します。それが、ミヤタアスリートクラブのこだわりです。</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(16px,2.4vw,22px);">
+        <!-- 1 -->
+        <div data-reveal="0" style="position:relative; background:#f5fbfe; border:1.5px solid #e2f1f8; border-radius:22px; padding:30px 26px; overflow:hidden; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-6px); box-shadow:0 20px 40px rgba(10,147,196,.14);">
+          <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:13px; color:var(--ocean,#0a93c4); letter-spacing:.08em; margin-bottom:14px;">こだわり 01</div>
+          <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:19px; margin:0 0 11px; color:#0a3346; line-height:1.45;">成長に合わせて、<br>教え方を変える。</h3>
+          <p style="margin:0; font-size:14px; line-height:1.9; color:#48707f;">年齢や体の発達段階によって、適した「体の動かし方」は変わります。一人ひとりの“いま”に合った指導で、ムリなく、いちばん伸びる時期を逃しません。</p>
+        </div>
+        <!-- 2 -->
+        <div data-reveal="120" style="position:relative; background:linear-gradient(165deg,#0c3a4d,#0a93c4); border-radius:22px; padding:30px 26px; overflow:hidden; box-shadow:0 18px 40px rgba(10,58,77,.22); transition:transform .3s ease;" style-hover="transform:translateY(-7px);">
+          <div style="position:absolute; top:-26px; right:-18px; width:120px; height:120px; border-radius:50%; background:rgba(255,255,255,.07);"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:13px; color:#ffe39c; letter-spacing:.08em; margin-bottom:14px;">こだわり 02</div>
+            <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:19px; margin:0 0 11px; color:#fff; line-height:1.45;">だから、3つの<br>コースに分ける。</h3>
+            <p style="margin:0; font-size:14px; line-height:1.9; color:rgba(255,255,255,.92);">学年で分けない教室が多いなか、私たちは低学年・高学年・アスリート育成の3コース制。その年代に本当に必要な動きを、ていねいに積み上げていきます。</p>
+          </div>
+        </div>
+        <!-- 3 -->
+        <div data-reveal="240" style="position:relative; background:#fff6f1; border:1.5px solid #ffe0d3; border-radius:22px; padding:30px 26px; overflow:hidden; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-6px); box-shadow:0 20px 40px rgba(255,106,61,.16);">
+          <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:13px; color:var(--accent,#ff6a3d); letter-spacing:.08em; margin-bottom:14px;">こだわり 03</div>
+          <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:19px; margin:0 0 11px; color:#0a3346; line-height:1.45;">少人数で、ひとりに<br>向き合う。</h3>
+          <p style="margin:0; font-size:14px; line-height:1.9; color:#7a5546;">各コース<b style="color:#c2491f;">定員20名</b>。人数をしぼるからこそ、コーチの目がきちんと届きます。「ちゃんと見てもらえている」——その安心感が、子どもの“できた！”を増やします。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY / ABOUT ===== -->
+  <section id="about" style="background:#ffffff; padding:clamp(40px,7vw,86px) clamp(18px,4vw,40px) clamp(30px,5vw,60px);">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div data-reveal="0" style="text-align:center; margin-bottom:clamp(30px,4vw,46px);">
+        <div style="font-weight:900; letter-spacing:.2em; color:var(--accent,#ff6a3d); font-size:13px; margin-bottom:12px;">WHY TRACK &amp; FIELD</div>
+        <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(26px,3.8vw,42px); margin:0 0 16px; color:#0a3346; line-height:1.3;">陸上は、すべての<br>スポーツの<span style="color:var(--ocean,#0a93c4);">土台</span>になる。</h2>
+        <p style="max-width:32em; margin:0 auto; font-size:clamp(14.5px,1.7vw,16px); line-height:1.95; color:#48707f;">走る・跳ぶ・投げる——陸上で育つ「基礎運動能力」は、どんな競技でも“活躍できる力”に。いま夢中なスポーツにも、これから出会う競技にも、ずっと生きてきます。これがミヤタアスリートクラブで身につく、一生モノの財産です。</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:14px; margin-bottom:clamp(24px,3vw,36px);">
+        <div data-reveal="0" style="background:#ffffff; border:1px solid #e9eef2; border-radius:18px; padding:30px 18px 26px; text-align:center; transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;" style-hover="transform:translateY(-6px); box-shadow:0 22px 44px rgba(10,58,77,.12); border-color:#cfe0e8;">
+          <div style="width:72px; height:72px; margin:0 auto 16px; border-radius:50%; border:1.5px solid #e7eef2; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,#ffffff,#f4f9fb);">
+            <img src="s-run.png" alt="走る力" style="width:50px; height:50px; object-fit:contain; display:block;">
+          </div>
+          <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:16px; color:#0a3346;">走る力</div>
+          <div style="width:26px; height:2px; background:var(--accent,#ff6a3d); border-radius:2px; margin:11px auto 10px;"></div>
+          <div style="font-size:11px; letter-spacing:.13em; font-weight:800; color:var(--ocean,#0a93c4);">スピードUP</div>
+        </div>
+        <div data-reveal="80" style="background:#ffffff; border:1px solid #e9eef2; border-radius:18px; padding:30px 18px 26px; text-align:center; transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;" style-hover="transform:translateY(-6px); box-shadow:0 22px 44px rgba(10,58,77,.12); border-color:#cfe0e8;">
+          <div style="width:72px; height:72px; margin:0 auto 16px; border-radius:50%; border:1.5px solid #e7eef2; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,#ffffff,#f4f9fb);">
+            <img src="s-jump.png" alt="跳ぶ力" style="width:50px; height:50px; object-fit:contain; display:block;">
+          </div>
+          <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:16px; color:#0a3346;">跳ぶ力</div>
+          <div style="width:26px; height:2px; background:var(--accent,#ff6a3d); border-radius:2px; margin:11px auto 10px;"></div>
+          <div style="font-size:11px; letter-spacing:.13em; font-weight:800; color:var(--ocean,#0a93c4);">瞬発力UP</div>
+        </div>
+        <div data-reveal="160" style="background:#ffffff; border:1px solid #e9eef2; border-radius:18px; padding:30px 18px 26px; text-align:center; transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;" style-hover="transform:translateY(-6px); box-shadow:0 22px 44px rgba(10,58,77,.12); border-color:#cfe0e8;">
+          <div style="width:72px; height:72px; margin:0 auto 16px; border-radius:50%; border:1.5px solid #e7eef2; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,#ffffff,#f4f9fb);">
+            <img src="s-throw.png" alt="投げる力" style="width:50px; height:50px; object-fit:contain; display:block;">
+          </div>
+          <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:16px; color:#0a3346;">投げる力</div>
+          <div style="width:26px; height:2px; background:var(--accent,#ff6a3d); border-radius:2px; margin:11px auto 10px;"></div>
+          <div style="font-size:11px; letter-spacing:.13em; font-weight:800; color:var(--ocean,#0a93c4);">パワーUP</div>
+        </div>
+        <div data-reveal="240" style="background:#ffffff; border:1px solid #e9eef2; border-radius:18px; padding:30px 18px 26px; text-align:center; transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;" style-hover="transform:translateY(-6px); box-shadow:0 22px 44px rgba(10,58,77,.12); border-color:#cfe0e8;">
+          <div style="width:72px; height:72px; margin:0 auto 16px; border-radius:50%; border:1.5px solid #e7eef2; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,#ffffff,#f4f9fb);">
+            <img src="s-balance.png" alt="体の使い方" style="width:50px; height:50px; object-fit:contain; display:block;">
+          </div>
+          <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:16px; color:#0a3346;">体の使い方</div>
+          <div style="width:26px; height:2px; background:var(--accent,#ff6a3d); border-radius:2px; margin:11px auto 10px;"></div>
+          <div style="font-size:11px; letter-spacing:.13em; font-weight:800; color:var(--ocean,#0a93c4);">バランスUP</div>
+        </div>
+        <div data-reveal="320" style="background:#ffffff; border:1px solid #e9eef2; border-radius:18px; padding:30px 18px 26px; text-align:center; transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;" style-hover="transform:translateY(-6px); box-shadow:0 22px 44px rgba(10,58,77,.12); border-color:#cfe0e8;">
+          <div style="width:72px; height:72px; margin:0 auto 16px; border-radius:50%; border:1.5px solid #e7eef2; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg,#ffffff,#f4f9fb);">
+            <img src="s-shield.png" alt="ケガに強い体" style="width:50px; height:50px; object-fit:contain; display:block;">
+          </div>
+          <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:16px; color:#0a3346;">ケガに強い体</div>
+          <div style="width:26px; height:2px; background:var(--accent,#ff6a3d); border-radius:2px; margin:11px auto 10px;"></div>
+          <div style="font-size:11px; letter-spacing:.13em; font-weight:800; color:var(--ocean,#0a93c4);">体づくり</div>
+        </div>
+      </div>
+      <div data-reveal="120" style="position:relative; overflow:hidden; border-radius:22px; background:linear-gradient(120deg,#0c3a4d,#0a93c4); padding:clamp(24px,3.5vw,34px) clamp(22px,4vw,40px); text-align:center; box-shadow:0 18px 40px rgba(10,58,77,.24);">
+        <div style="position:absolute; top:-30px; right:-20px; width:140px; height:140px; border-radius:50%; background:rgba(255,255,255,.08);"></div>
+        <div style="position:relative; z-index:2; font-family:'Zen Maru Gothic',sans-serif; font-weight:900; color:#fff; font-size:clamp(18px,2.6vw,24px); margin-bottom:15px;">だから、あらゆるスポーツに活きる。</div>
+        <div style="position:relative; z-index:2; display:flex; flex-wrap:wrap; gap:9px; justify-content:center;">
+          <sc-for list="{{ sports }}" as="sp" hint-placeholder-count="8">
+            <span style="background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.28); color:#fff; font-weight:800; font-size:13.5px; padding:7px 15px; border-radius:999px;">{{ sp }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FREE TRIAL BANNER ===== -->
+  <section id="trial" style="padding:clamp(20px,4vw,40px) clamp(18px,4vw,40px);">
+    <div data-reveal="0" style="max-width:1100px; margin:0 auto; position:relative; overflow:hidden; background:linear-gradient(135deg,var(--ocean,#0a93c4) 0%, #1cb3d8 55%, #36c7e3 100%); border-radius:28px; padding:clamp(32px,5vw,56px) clamp(26px,5vw,56px); box-shadow:0 24px 50px rgba(10,147,196,.3);">
+      <div style="position:absolute; top:-40px; right:-20px; width:200px; height:200px; border-radius:50%; background:rgba(255,255,255,.12);"></div>
+      <div style="position:absolute; bottom:-60px; left:30%; width:160px; height:160px; border-radius:50%; background:rgba(255,255,255,.08);"></div>
+      <div style="position:relative; z-index:2; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:28px; align-items:center;">
+        <div>
+          <div style="display:inline-block; background:var(--accent,#ff6a3d); color:#fff; font-weight:900; font-family:'Zen Maru Gothic',sans-serif; font-size:13px; padding:7px 16px; border-radius:999px; margin-bottom:16px; box-shadow:0 8px 18px rgba(255,90,43,.35);">入会前にまずは体験</div>
+          <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; color:#fff; font-size:clamp(28px,4.4vw,46px); margin:0 0 12px; line-height:1.25;">見学・体験は<br><span style="color:#ffe39c;">無料</span>です。</h2>
+          <p style="color:rgba(255,255,255,.92); font-size:15px; line-height:1.85; margin:0; max-width:28em;">「うちの子に合うかな？」まずは練習の様子を見にきてください。雰囲気を感じてから、ゆっくり決められます。しつこい勧誘はありません。</p>
+        </div>
+        <div style="text-align:center;">
+          <button onClick="{{ openTrial }}" style="font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:#fff; color:var(--accent,#ff6a3d); font-weight:900; font-size:18px; padding:20px 40px; border-radius:999px; box-shadow:0 16px 34px rgba(0,0,0,.18); display:inline-flex; align-items:center; gap:10px; transition:transform .2s ease;" style-hover="transform:translateY(-3px) scale(1.02);">
+            無料で体験・見学を予約する
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div style="color:rgba(255,255,255,.85); font-size:12.5px; margin-top:12px; font-weight:600;">30秒で予約完了 / 持ち物いりません</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING ===== -->
+  <section id="pricing" style="background:#ffffff; padding:clamp(44px,6vw,80px) clamp(18px,4vw,40px);">
+    <div style="max-width:1040px; margin:0 auto;">
+      <div data-reveal="0" style="text-align:center; margin-bottom:clamp(30px,4vw,48px);">
+        <div style="font-weight:900; letter-spacing:.2em; color:var(--accent,#ff6a3d); font-size:13px; margin-bottom:12px;">PRICING</div>
+        <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(26px,3.6vw,40px); margin:0 0 10px; color:#0a3346;">料金プラン</h2>
+        <p style="margin:0; color:#48707f; font-size:15px;">小学生から一般まで、年齢・レベルで選べる3コース。毎月クレジットカード決済（自動更新）で、いつでも切り替えできます。</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; align-items:stretch;">
+        <sc-for list="{{ courses }}" as="c" hint-placeholder-count="3">
+          <div data-reveal="{{ c.delay }}" style="position:relative; background:#fff; border:2px solid {{ c.border }}; border-radius:22px; overflow:hidden; display:flex; flex-direction:column; transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-6px); box-shadow:0 22px 44px rgba(10,58,77,.16);">
+            <div style="position:absolute; top:12px; right:12px; z-index:2; background:rgba(255,255,255,.92); color:{{ c.color }}; font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:11px; padding:5px 11px; border-radius:999px; box-shadow:0 4px 10px rgba(0,0,0,.12);">定員20名</div>
+            <image-slot id="{{ c.id }}" src="{{ c.img }}" style="width:100%; height:140px; display:block;" shape="rect" placeholder="{{ c.title }}"></image-slot>
+            <div style="padding:22px 22px 24px; display:flex; flex-direction:column; flex:1;">
+              <span style="display:inline-block; background:{{ c.tagBg }}; color:{{ c.color }}; font-weight:800; font-size:11.5px; padding:4px 12px; border-radius:999px; margin-bottom:9px;">{{ c.grade }}</span>
+              <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:21px; margin:0; color:{{ c.color }}; line-height:1.25;">{{ c.title }}</h3>
+              <div style="display:flex; flex-wrap:wrap; gap:8px; margin:14px 0;">
+                <span style="display:inline-flex; align-items:center; gap:5px; background:#f3fbfe; border:1px solid #e2f1f8; color:#33606f; font-weight:700; font-size:12.5px; padding:5px 11px; border-radius:999px;">{{ c.days }}</span>
+                <span style="display:inline-flex; align-items:center; gap:5px; background:#f3fbfe; border:1px solid #e2f1f8; color:#33606f; font-weight:700; font-size:12.5px; padding:5px 11px; border-radius:999px;">{{ c.time }}</span>
+              </div>
+              <div style="display:flex; align-items:baseline; gap:4px; margin:2px 0 12px;">
+                <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:40px; color:#0a3346;">{{ c.price }}</span>
+                <span style="font-size:14px; color:#5a7d8c; font-weight:700;">/月（税込）</span>
+              </div>
+              <p style="margin:0 0 20px; font-size:13.5px; line-height:1.8; color:#5a7d8c;">{{ c.body }}</p>
+              <button onClick="{{ c.onClick }}" style="margin-top:auto; font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:{{ c.color }}; color:#fff; font-weight:900; font-size:15px; padding:15px; border-radius:999px; box-shadow:0 12px 24px rgba(10,58,77,.2); transition:transform .2s ease;" style-hover="transform:scale(1.03);">このコースで申し込む</button>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <p style="text-align:center; color:#5a7d8c; font-size:13.5px; font-weight:700; margin:20px 0 0;">各コース定員20名 <span style="color:#88a3ae; font-weight:600;">※エリア拡大に伴い増員予定</span></p>
+
+      <!-- fee notes -->
+      <div data-reveal="80" style="margin-top:26px; display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px;">
+        <div style="background:#fff6f1; border:1.5px solid #ffe0d3; border-radius:18px; padding:18px 20px; text-align:center;">
+          <div style="font-size:12.5px; color:#9a6a55; font-weight:700;">入会金</div>
+          <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:22px; color:var(--accent,#ff6a3d); margin-top:4px;">¥4,400</div>
+        </div>
+        <div style="background:#f3fbfe; border:1.5px solid #d9eef7; border-radius:18px; padding:18px 20px; text-align:center;">
+          <div style="font-size:12.5px; color:#3f7287; font-weight:700;">更新料（年1回）</div>
+          <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:22px; color:var(--ocean,#0a93c4); margin-top:4px;">¥3,300</div>
+        </div>
+        <div style="background:#f6f4ff; border:1.5px solid #e4def7; border-radius:18px; padding:18px 20px; text-align:center;">
+          <div style="font-size:12.5px; color:#6a5f9a; font-weight:700;">お支払い</div>
+          <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:15px; color:#5b4fa3; margin-top:8px; display:flex; align-items:center; justify-content:center; gap:6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="3" stroke="#5b4fa3" stroke-width="2"/><path d="M3 9h18" stroke="#5b4fa3" stroke-width="2"/></svg>
+            毎月カード決済
+          </div>
+        </div>
+      </div>
+      <p style="text-align:center; color:#88a3ae; font-size:12.5px; margin:18px 0 0;">＊クレジットカードによる月額自動決済（Stripe）。ご解約はいつでも可能です。</p>
+
+      <!-- weekly schedule -->
+      <div data-reveal="0" style="margin-top:clamp(40px,5vw,60px);">
+        <div style="display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px; margin-bottom:16px;">
+          <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(20px,2.6vw,26px); margin:0; color:#0a3346;">週間スケジュール</h3>
+          <div style="color:var(--accent,#ff6a3d); font-weight:800; font-size:13px;">※火・土・日は休講です</div>
+        </div>
+        <div style="overflow-x:auto; border-radius:18px; border:1.5px solid #e2f1f8; box-shadow:0 12px 30px rgba(10,147,196,.08);">
+          <table style="width:100%; min-width:580px; table-layout:fixed; border-collapse:collapse; background:#fff; font-size:13px;">
+            <thead>
+              <tr>
+                <th style="padding:14px 10px; background:#0a3346; color:#fff; font-weight:800; text-align:center; width:78px;">時間</th>
+                <th style="padding:14px 10px; background:#0a93c4; color:#fff; font-weight:800; text-align:center;">月</th>
+                <th style="padding:14px 10px; background:#9bb6c2; color:#fff; font-weight:800; text-align:center;">火</th>
+                <th style="padding:14px 10px; background:#0a93c4; color:#fff; font-weight:800; text-align:center;">水</th>
+                <th style="padding:14px 10px; background:#0a93c4; color:#fff; font-weight:800; text-align:center;">木</th>
+                <th style="padding:14px 10px; background:#0a93c4; color:#fff; font-weight:800; text-align:center;">金</th>
+                <th style="padding:14px 10px; background:#9bb6c2; color:#fff; font-weight:800; text-align:center;">土</th>
+                <th style="padding:14px 10px; background:#9bb6c2; color:#fff; font-weight:800; text-align:center;">日</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:14px 8px; text-align:center; font-weight:800; color:#0a3346; background:#f5fbfe; border-top:1px solid #e2f1f8;">17:00<br>〜18:00</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#0a7d4f; background:#eefaf3; border-top:1px solid #e2f1f8;">低学年<br>コース</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#9aa7ae; background:#f3f5f6; border-top:1px solid #e2f1f8;">休講</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#c2491f; background:#fff3ee; border-top:1px solid #e2f1f8;">高学年<br>コース</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#0a7d4f; background:#eefaf3; border-top:1px solid #e2f1f8;">低学年コース<br>（体操教室）</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#c2491f; background:#fff3ee; border-top:1px solid #e2f1f8;">高学年<br>コース</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#9aa7ae; background:#f3f5f6; border-top:1px solid #e2f1f8;">休講</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#9aa7ae; background:#f3f5f6; border-top:1px solid #e2f1f8;">休講</td>
+              </tr>
+              <tr>
+                <td style="padding:14px 8px; text-align:center; font-weight:800; color:#0a3346; background:#f5fbfe; border-top:1px solid #e2f1f8;">18:15<br>〜19:15</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#0a5f8a; background:#eef6fb; border-top:1px solid #e2f1f8;">アスリート<br>育成</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#9aa7ae; background:#f3f5f6; border-top:1px solid #e2f1f8;">休講</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#0a5f8a; background:#eef6fb; border-top:1px solid #e2f1f8;">アスリート<br>育成</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#c7d0d5; background:#fafbfb; border-top:1px solid #e2f1f8;">—</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#0a5f8a; background:#eef6fb; border-top:1px solid #e2f1f8;">アスリート<br>育成</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#9aa7ae; background:#f3f5f6; border-top:1px solid #e2f1f8;">休講</td>
+                <td style="padding:14px 8px; text-align:center; font-weight:700; color:#9aa7ae; background:#f3f5f6; border-top:1px solid #e2f1f8;">休講</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="color:#88a3ae; font-size:12px; margin:12px 0 0;">※大会やイベントにより、スケジュールは変更になる場合があります。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ACCESS ===== -->
+  <section id="access" style="background:linear-gradient(180deg,#ffffff,#eaf7fc); padding:clamp(44px,6vw,80px) clamp(18px,4vw,40px);">
+    <div style="max-width:1100px; margin:0 auto;">
+      <div data-reveal="0" style="text-align:center; margin-bottom:clamp(28px,4vw,44px);">
+        <div style="font-weight:900; letter-spacing:.2em; color:var(--accent,#ff6a3d); font-size:13px; margin-bottom:12px;">ACCESS</div>
+        <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(26px,3.6vw,40px); margin:0; color:#0a3346;">練習場所</h2>
+      </div>
+      <div data-reveal="80" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:26px; align-items:stretch;">
+        <!-- map placeholder -->
+        <div style="position:relative; border-radius:24px; overflow:hidden; min-height:300px; background:repeating-linear-gradient(45deg,#dceef6,#dceef6 14px,#e8f4fa 14px,#e8f4fa 28px); border:1.5px solid #cfe6f0; display:flex; align-items:center; justify-content:center;">
+          <div style="text-align:center; color:#6f93a2;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style="margin:0 auto 8px; display:block;"><path d="M12 21s-7-5.2-7-10a7 7 0 1114 0c0 4.8-7 10-7 10z" stroke="#6f93a2" stroke-width="2"/><circle cx="12" cy="11" r="2.4" stroke="#6f93a2" stroke-width="2"/></svg>
+            <div style="font-family:'SF Mono',ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:.05em;">Google Map を埋め込み</div>
+          </div>
+        </div>
+        <!-- details -->
+        <div style="background:#fff; border:1.5px solid #e2f1f8; border-radius:24px; padding:clamp(26px,4vw,38px); box-shadow:0 16px 36px rgba(10,147,196,.1);">
+          <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:23px; margin:0 0 6px; color:#0a3346;">コザ運動公園 陸上競技場</h3>
+          <div style="color:var(--ocean,#0a93c4); font-weight:700; font-size:13.5px; margin-bottom:22px;">沖縄県沖縄市</div>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <sc-for list="{{ accessRows }}" as="a" hint-placeholder-count="3">
+              <div style="display:flex; gap:14px; align-items:flex-start;">
+                <div style="flex:none; width:38px; height:38px; border-radius:11px; background:#f3fbfe; display:flex; align-items:center; justify-content:center; color:var(--ocean,#0a93c4); font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:12px;">{{ a.tag }}</div>
+                <div>
+                  <div style="font-weight:800; font-size:14.5px; color:#0a3346;">{{ a.label }}</div>
+                  <div style="font-size:13.5px; color:#5a7d8c; margin-top:2px; line-height:1.7;">{{ a.value }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <button onClick="{{ openTrial }}" style="margin-top:26px; width:100%; font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:var(--accent,#ff6a3d); color:#fff; font-weight:900; font-size:16px; padding:15px; border-radius:999px; box-shadow:0 12px 26px rgba(255,90,43,.34); transition:transform .2s ease;" style-hover="transform:translateY(-2px);">この場所で体験・見学を予約する</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA ===== -->
+  <section style="position:relative; overflow:hidden; background:linear-gradient(180deg,#eaf7fc,#7fcdef); padding:clamp(50px,7vw,92px) clamp(18px,4vw,40px) clamp(70px,8vw,110px); text-align:center;">
+    <div style="position:absolute; top:30px; left:12%; width:120px; height:36px; background:#fff; border-radius:30px; opacity:.7; animation:floatA 10s ease-in-out infinite;"></div>
+    <div style="position:absolute; top:70px; right:16%; width:90px; height:28px; background:#fff; border-radius:30px; opacity:.65; animation:floatB 12s ease-in-out infinite;"></div>
+    <div data-reveal="0" style="position:relative; z-index:2; max-width:680px; margin:0 auto;">
+      <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(28px,4.6vw,48px); margin:0 0 16px; color:#0a3346; line-height:1.3;">青空の下で、<br>最初の一歩を踏み出そう。</h2>
+      <p style="color:#326073; font-size:16px; line-height:1.9; margin:0 0 30px;">まずは無料の体験・見学から。コーチ・お友だち・グラウンドの雰囲気を、その目で確かめてください。</p>
+      <button onClick="{{ openTrial }}" style="font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:var(--accent,#ff6a3d); color:#fff; font-weight:900; font-size:19px; padding:20px 44px; border-radius:999px; box-shadow:0 18px 38px rgba(255,90,43,.42); display:inline-flex; align-items:center; gap:10px; transition:transform .2s ease;" style-hover="transform:translateY(-3px) scale(1.02);">
+        無料で体験・見学を予約する
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== RECRUIT LINKS ===== -->
+  <section style="background:linear-gradient(180deg,#ffffff,#f1fafe); padding:clamp(34px,5vw,64px) clamp(18px,4vw,40px);">
+    <div style="max-width:1000px; margin:0 auto;">
+      <div data-reveal="0" style="text-align:center; margin-bottom:clamp(22px,3vw,32px);">
+        <div style="font-weight:900; letter-spacing:.2em; color:var(--accent,#ff6a3d); font-size:13px; margin-bottom:10px;">JOIN US</div>
+        <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(22px,3vw,32px); margin:0; color:#0a3346;">一緒に、子どもたちを応援しませんか</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px;">
+        <a href="Coach Recruit.dc.html" data-reveal="60" style="text-decoration:none; position:relative; overflow:hidden; display:block; background:linear-gradient(150deg,#ff7d4a,#ff5a2b); border-radius:24px; padding:30px 28px; box-shadow:0 18px 38px rgba(255,90,43,.3); transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-6px); box-shadow:0 26px 50px rgba(255,90,43,.42);">
+          <div style="position:absolute; top:-30px; right:-20px; width:130px; height:130px; border-radius:50%; background:rgba(255,255,255,.12);"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-size:12px; font-weight:800; letter-spacing:.12em; color:rgba(255,255,255,.85); margin-bottom:8px;">COACH</div>
+            <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:24px; margin:0 0 8px; color:#fff;">コーチ募集</h3>
+            <p style="margin:0 0 16px; font-size:13.5px; line-height:1.7; color:rgba(255,255,255,.92);">子どもたちの「できた！」を支える仲間を募集中。未経験・資格不問です。</p>
+            <span style="display:inline-flex; align-items:center; gap:7px; font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:14px; color:#fff;">募集ページを見る<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+        <a href="Sponsor Recruit.dc.html" data-reveal="140" style="text-decoration:none; position:relative; overflow:hidden; display:block; background:linear-gradient(150deg,#0c3a4d,#0a93c4); border-radius:24px; padding:30px 28px; box-shadow:0 18px 38px rgba(10,58,77,.3); transition:transform .3s ease, box-shadow .3s ease;" style-hover="transform:translateY(-6px); box-shadow:0 26px 50px rgba(10,58,77,.42);">
+          <div style="position:absolute; top:-30px; right:-20px; width:130px; height:130px; border-radius:50%; background:rgba(255,255,255,.1);"></div>
+          <div style="position:relative; z-index:2;">
+            <div style="font-size:12px; font-weight:800; letter-spacing:.12em; color:#ffe39c; margin-bottom:8px;">SPONSOR</div>
+            <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:24px; margin:0 0 8px; color:#fff;">スポンサー募集</h3>
+            <p style="margin:0 0 16px; font-size:13.5px; line-height:1.7; color:rgba(255,255,255,.9);">地域の子どもたちを一緒に応援してくださる協賛企業を募集しています。</p>
+            <span style="display:inline-flex; align-items:center; gap:7px; font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:14px; color:#fff;">募集ページを見る<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 関連事業 & コラボ -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; margin-top:18px;">
+        <!-- ミヤタサービス関連事業 -->
+        <div data-reveal="60" style="background:#fff; border:1px solid #e4ebef; border-radius:22px; padding:26px 26px; box-shadow:0 8px 24px rgba(10,58,77,.06);">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;">
+            <div style="width:7px; height:7px; border-radius:50%; background:var(--ocean,#0a93c4);"></div>
+            <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:15px; color:#0a3346;">ミヤタサービス関連事業</span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; align-items:center; gap:12px; background:#f5fbfe; border:1px solid #e2f1f8; border-radius:13px; padding:13px 16px;">
+              <div style="flex:none; width:38px; height:38px; border-radius:11px; background:linear-gradient(140deg,#0a93c4,#27c0e6); display:flex; align-items:center; justify-content:center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 5l-7 7M14 4l6 6M9 13l-5 5 2 2 5-5M11 11l2 2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:800; font-size:14.5px; color:#0a3346;">清掃事業部</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; background:#f5fbfe; border:1px solid #e2f1f8; border-radius:13px; padding:13px 16px;">
+              <div style="flex:none; width:38px; height:38px; border-radius:11px; background:linear-gradient(140deg,#5b4fa3,#8a6ad6); display:flex; align-items:center; justify-content:center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#fff" stroke-width="2"/><path d="M9 4v16M15 4v16M4 9h5M4 15h5M15 9h5M15 15h5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:800; font-size:14.5px; color:#0a3346;">AI / DX事業部</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- コラボ -->
+        <div data-reveal="140" style="background:#fff; border:1px solid #e4ebef; border-radius:22px; padding:26px 26px; box-shadow:0 8px 24px rgba(10,58,77,.06);">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;">
+            <div style="width:7px; height:7px; border-radius:50%; background:var(--accent,#ff6a3d);"></div>
+            <span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:15px; color:#0a3346;">コラボ</span>
+          </div>
+          <a href="https://www.instagram.com/genkids_2025?igsh=c3JtMjA1eDQ3MzZt" target="_blank" rel="noopener noreferrer" onClick="{{ openGenkids }}" style="text-decoration:none; display:flex; align-items:center; gap:14px; background:#fff7f4; border:1px solid #ffe0d3; border-radius:13px; padding:15px 16px; transition:transform .2s ease, box-shadow .2s ease;" style-hover="transform:translateY(-2px); box-shadow:0 12px 26px rgba(255,106,61,.16);">
+            <div style="flex:none; width:46px; height:46px; border-radius:13px; background:linear-gradient(140deg,#feda75,#d62976 55%,#962fbf); display:flex; align-items:center; justify-content:center;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="17" height="17" rx="5" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="2"/><circle cx="17" cy="7" r="1.3" fill="#fff"/></svg>
+            </div>
+            <div style="min-width:0;">
+              <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:15.5px; color:#0a3346;">けんきっず体操クラブ</div>
+              <div style="display:inline-flex; align-items:center; gap:5px; font-size:12px; color:var(--accent,#ff6a3d); font-weight:800; margin-top:3px;">
+                Instagramを見る
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer style="background:#0a3346; color:#cfe3ec; padding:40px clamp(18px,4vw,40px);">
+    <div style="max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between; align-items:center;">
+      <img src="miyata-logo-dark.png" alt="ミヤタアスリートクラブ" style="height:88px; width:auto; display:block;">
+      <div style="font-size:12.5px; color:#8fb3c2;">コザ運動公園 陸上競技場（沖縄県沖縄市）／ 対象 小学生〜一般</div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <a href="#" target="_blank" rel="noopener" aria-label="Instagram" style="width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.08); color:#cfe3ec; display:flex; align-items:center; justify-content:center; transition:background .2s ease, color .2s ease;" style-hover="background:var(--accent,#ff6a3d); color:#fff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5.4" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg></a>
+        <a href="#" target="_blank" rel="noopener" aria-label="X" style="width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.08); color:#cfe3ec; display:flex; align-items:center; justify-content:center; transition:background .2s ease, color .2s ease;" style-hover="background:var(--accent,#ff6a3d); color:#fff;"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.7 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.4L4.3 21H1l7.7-8.8L2 3h6.8l4.7 5.9L17.7 3zm-1.2 16h1.8L7.6 4.9H5.7L16.5 19z"/></svg></a>
+        <a href="#" target="_blank" rel="noopener" aria-label="Facebook" style="width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.08); color:#cfe3ec; display:flex; align-items:center; justify-content:center; transition:background .2s ease, color .2s ease;" style-hover="background:var(--accent,#ff6a3d); color:#fff;"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.3l.4-3h-2.7V9.1c0-.8.3-1.4 1.5-1.4h1.3V5.1C17.6 5 16.8 5 15.9 5c-2 0-3.4 1.2-3.4 3.6V11H10v3h2.5v7h1z"/></svg></a>
+        <a href="#" target="_blank" rel="noopener" aria-label="公式LINE" style="width:38px; height:38px; border-radius:50%; background:#06C755; color:#fff; display:flex; align-items:center; justify-content:center; transition:transform .2s ease;" style-hover="transform:translateY(-2px);"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 3 7.2 3 11.2c0 3.6 3.2 6.6 7.5 7.1.3 0 .5.2.5.5v1.5c0 .4.4.6.8.4 3-1.5 4.8-3 6-4.4 1.4-1.5 2.2-3 2.2-4.6C22 7.2 17.5 4 12 4z"/></svg></a>
+      </div>
+      <div style="font-size:12px; color:#6f95a6; display:flex; gap:14px; align-items:center;">© 2026 ミヤタアスリートクラブ<button onClick="{{ openWithdraw }}" style="background:transparent; border:1px solid rgba(255,255,255,.22); color:#9fb9c6; font-family:'Zen Kaku Gothic New',sans-serif; font-weight:700; font-size:12px; padding:7px 14px; border-radius:999px; cursor:pointer; transition:background .2s, color .2s;" style-hover="background:rgba(255,255,255,.08); color:#e6f0f4;">退会手続き</button><a href="Admin.dc.html" style="color:#6f95a6; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.25);">スタッフ用</a></div>
+    </div>
+  </footer>
+
+  <!-- ===== WITHDRAW MODAL ===== -->
+  <sc-if value="{{ withdrawOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeWithdraw }}" style="position:fixed; inset:0; z-index:200; background:rgba(8,40,55,.55); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; padding:18px;">
+      <div onClick="{{ stop }}" style="width:100%; max-width:460px; max-height:92vh; overflow-y:auto; background:#fff; border-radius:26px; box-shadow:0 30px 70px rgba(0,0,0,.4); animation:popIn .3s ease; position:relative;">
+        <button onClick="{{ closeWithdraw }}" aria-label="閉じる" style="position:absolute; top:16px; right:16px; z-index:3; width:36px; height:36px; border-radius:50%; border:none; cursor:pointer; background:#f0f6f9; display:flex; align-items:center; justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#0c3a4d" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+        <sc-if value="{{ withdrawn }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:48px 34px; text-align:center;">
+            <div style="width:78px; height:78px; border-radius:50%; background:rgba(31,176,107,.14); display:flex; align-items:center; justify-content:center; margin:0 auto 22px; animation:popIn .4s ease;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-11" stroke="#1fb06b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:23px; margin:0 0 12px; color:#0a3346;">退会申請を受け付けました</h3>
+            <p style="font-size:14px; line-height:1.85; color:#48707f; margin:0 0 28px;">担当より確認のご連絡をいたします。たくさんのご参加、ありがとうございました。またいつでもお待ちしています！</p>
+            <button onClick="{{ closeWithdraw }}" style="font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:var(--ocean,#0a93c4); color:#fff; font-weight:900; font-size:16px; padding:14px 34px; border-radius:999px;">閉じる</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ withdrawForm }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:30px 26px 28px;">
+            <div style="display:inline-block; background:#eef3f6; color:#5a7d8c; font-weight:900; font-family:'Zen Maru Gothic',sans-serif; font-size:12px; padding:6px 14px; border-radius:999px; margin-bottom:12px;">退会手続き</div>
+            <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:22px; margin:0 0 6px; color:#0a3346;">退会のご申請</h3>
+            <p style="font-size:13px; color:#5a7d8c; margin:0 0 20px; line-height:1.75;">下記をご入力ください。ご申請後、担当より手続きのご案内をいたします。（月末での退会となります）</p>
+            <form onSubmit="{{ submitWithdraw }}">
+              <div style="display:flex; flex-direction:column; gap:13px;">
+                <label style="display:block;">
+                  <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:5px;">会員名（お子さま・ご本人）</span>
+                  <input type="text" placeholder="宮城 翔" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                </label>
+                <label style="display:block;">
+                  <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:5px;">受講コース</span>
+                  <select style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe;">
+                    <option value="">選択してください</option>
+                    <option value="低学年コース">低学年コース</option>
+                    <option value="高学年コース">高学年コース</option>
+                    <option value="アスリート育成コース">アスリート育成コース</option>
+                  </select>
+                </label>
+                <label style="display:block;">
+                  <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:5px;">退会希望月</span>
+                  <input type="text" placeholder="例）７月末" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                </label>
+                <label style="display:block;">
+                  <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:5px;">電話番号 または メールアドレス</span>
+                  <input type="text" placeholder="090-0000-0000" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                </label>
+                <label style="display:block;">
+                  <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:5px;">退会理由（任意）</span>
+                  <textarea rows="2" placeholder="よろしければお聞かせください" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe; resize:vertical;" style-focus="border:1.5px solid var(--ocean,#0a93c4);"></textarea>
+                </label>
+              </div>
+              <button type="submit" style="margin-top:20px; width:100%; font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:#0a3346; color:#fff; font-weight:900; font-size:16px; padding:15px; border-radius:999px; box-shadow:0 12px 26px rgba(10,51,70,.28);">退会を申請する</button>
+              <p style="text-align:center; font-size:11.5px; color:#9bb2bc; margin:12px 0 0;">＊本申請だけでは退会は確定しません。担当より確認ご連絡をいたします。</p>
+            </form>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== COACHES OVERLAY ===== -->
+  <sc-if value="{{ coachesOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeCoaches }}" style="position:fixed; inset:0; z-index:210; background:rgba(8,40,55,.55); backdrop-filter:blur(4px); display:flex; align-items:flex-start; justify-content:center; padding:clamp(16px,4vw,48px) 16px; overflow-y:auto;">
+      <div onClick="{{ stop }}" style="width:100%; max-width:1080px; background:linear-gradient(180deg,#ffffff,#f1fafe); border-radius:26px; box-shadow:0 30px 70px rgba(0,0,0,.4); animation:popIn .3s ease; position:relative; padding:clamp(28px,4vw,46px) clamp(20px,4vw,40px) clamp(30px,4vw,44px);">
+        <button onClick="{{ closeCoaches }}" aria-label="閉じる" style="position:absolute; top:18px; right:18px; z-index:3; width:38px; height:38px; border-radius:50%; border:none; cursor:pointer; background:#eef4f7; display:flex; align-items:center; justify-content:center;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#0c3a4d" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+        <div style="text-align:center; margin-bottom:clamp(22px,3vw,34px);">
+          <div style="font-weight:900; letter-spacing:.2em; color:var(--accent,#ff6a3d); font-size:13px; margin-bottom:10px;">COACHES</div>
+          <h2 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:clamp(24px,3.4vw,36px); margin:0 0 8px; color:#0a3346;">コーチ紹介</h2>
+          <p style="margin:0; color:#48707f; font-size:14.5px;">子どもから一般まで、一人ひとりに寄り添う指導者がそろっています。</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:22px;">
+          <sc-for list="{{ coaches }}" as="m" hint-placeholder-count="3">
+          <div style="background:#fff; border:1.5px solid #e2f1f8; border-radius:22px; padding:26px 24px; box-shadow:0 14px 34px rgba(10,147,196,.08); display:flex; flex-direction:column;">
+            <div style="display:flex; gap:16px; align-items:center;">
+              <image-slot id="{{ m.id }}" style="width:92px; height:92px; flex:none; box-shadow:0 6px 16px rgba(10,58,77,.16);" shape="circle" placeholder="顔写真"></image-slot>
+              <div>
+                <span style="display:inline-block; background:#eef6fb; color:var(--ocean,#0a93c4); font-weight:800; font-size:11.5px; padding:4px 11px; border-radius:999px; margin-bottom:7px;">{{ m.role }}</span>
+                <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:20px; margin:0; color:#0a3346;">{{ m.name }}</h3>
+                <div style="font-size:12.5px; color:#5a7d8c; font-weight:600; margin-top:3px;">{{ m.specialty }}</div>
+              </div>
+            </div>
+            <div style="height:1px; background:#e2f1f8; margin:18px 0 14px;"></div>
+            <div style="font-size:11.5px; font-weight:800; letter-spacing:.06em; color:#88a3ae; margin-bottom:10px;">実績・プロフィール</div>
+            <ul style="list-style:none; padding:0; margin:0 0 16px; display:flex; flex-direction:column; gap:9px;">
+              <sc-for list="{{ m.achievements }}" as="a" hint-placeholder-count="3">
+                <li style="display:flex; align-items:flex-start; gap:9px; font-size:13.5px; color:#33606f; font-weight:600; line-height:1.6;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex:none; margin-top:2px;"><circle cx="12" cy="12" r="10" fill="rgba(255,106,61,.14)"/><path d="M8 12.5l2.5 2.5L16 9" stroke="#ff6a3d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  {{ a }}
+                </li>
+              </sc-for>
+            </ul>
+            <p style="margin:0; font-size:13px; line-height:1.85; color:#5a7d8c; background:#f5fbfe; border-radius:12px; padding:14px 15px;">{{ m.message }}</p>
+          </div>
+          </sc-for>
+        </div>
+        <p style="text-align:center; color:#9bb2bc; font-size:12px; margin:22px 0 0;">＊お名前・写真・実績はサンプルです。実際の情報に差し替えてください。</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== MODAL ===== -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeCheckout }}" style="position:fixed; inset:0; z-index:200; background:rgba(8,40,55,.55); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; padding:18px;">
+      <div onClick="{{ stop }}" style="width:100%; max-width:520px; max-height:92vh; overflow-y:auto; background:#fff; border-radius:26px; box-shadow:0 30px 70px rgba(0,0,0,.4); animation:popIn .3s ease; position:relative;">
+        <button onClick="{{ closeCheckout }}" aria-label="閉じる" style="position:absolute; top:16px; right:16px; z-index:3; width:36px; height:36px; border-radius:50%; border:none; cursor:pointer; background:#f0f6f9; display:flex; align-items:center; justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#0c3a4d" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </button>
+
+        <!-- SUCCESS -->
+        <sc-if value="{{ paid }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:48px 34px; text-align:center;">
+            <div style="width:78px; height:78px; border-radius:50%; background:rgba(31,176,107,.14); display:flex; align-items:center; justify-content:center; margin:0 auto 22px; animation:popIn .4s ease;">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4 10-11" stroke="#1fb06b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:24px; margin:0 0 12px; color:#0a3346;">{{ successTitle }}</h3>
+            <p style="font-size:14.5px; line-height:1.85; color:#48707f; margin:0 0 28px;">{{ successBody }}</p>
+            <button onClick="{{ closeCheckout }}" style="font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:var(--ocean,#0a93c4); color:#fff; font-weight:900; font-size:16px; padding:14px 34px; border-radius:999px;">閉じる</button>
+          </div>
+        </sc-if>
+
+        <!-- TRIAL FORM -->
+        <sc-if value="{{ showTrialForm }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:26px 22px 26px;">
+            <div style="display:inline-block; background:rgba(255,106,61,.12); color:var(--accent,#ff6a3d); font-weight:900; font-family:'Zen Maru Gothic',sans-serif; font-size:12px; padding:6px 14px; border-radius:999px; margin-bottom:12px;">無料・先着 5組/日</div>
+            <h3 style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:22px; margin:0 0 6px; color:#0a3346;">体験・見学を予約する</h3>
+            <p style="font-size:13px; color:#5a7d8c; margin:0 0 16px; line-height:1.7;">ご希望の日を選んでください。</p>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px;">
+              <button onClick="{{ prevWeek }}" aria-label="前の週" style="{{ prevBtnStyle }}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#0c3a4d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:14.5px; color:#0a3346;">{{ weekLabel }}</div>
+              <button onClick="{{ nextWeek }}" aria-label="次の週" style="{{ nextBtnStyle }}">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#0c3a4d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:5px;">
+              <sc-for list="{{ calendarDays }}" as="d" hint-placeholder-count="7">
+                <button onClick="{{ d.onClick }}" style="{{ d.cellStyle }}">
+                  <span style="{{ d.dowStyle }}">{{ d.dow }}</span>
+                  <span style="font-size:12px; font-weight:800; color:#0a3346;">{{ d.dm }}</span>
+                  <span style="display:flex; align-items:center; justify-content:center; height:21px; font-size:16px; font-weight:900; line-height:1; color:{{ d.symColor }};">{{ d.sym }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:12px 0 2px; font-size:11.5px; color:#5a7d8c; font-weight:700;">
+              <span style="display:inline-flex; align-items:center; gap:4px;"><span style="color:#1fb06b; font-weight:900;">〇</span>予約可</span>
+              <span style="display:inline-flex; align-items:center; gap:4px;"><span style="color:#ef8a2b; font-weight:900;">△</span>残りわずか</span>
+              <span style="display:inline-flex; align-items:center; gap:4px;"><span style="color:#9aa7ae; font-weight:900;">✕</span>予約不可</span>
+            </div>
+            <div style="text-align:center; font-size:11px; color:#9bb2bc; margin-bottom:4px;">＊体験予約は1日 先着５組まで（火・土・日は休講）</div>
+            <sc-if value="{{ hasSelected }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:14px; background:#eaf7fc; border:1.5px solid #cfe6f0; border-radius:12px; padding:11px 14px; font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:14px; color:var(--ocean,#0a93c4); text-align:center;">選択中：{{ selectedLabel }}</div>
+              <form onSubmit="{{ submitTrial }}">
+                <div style="display:flex; flex-direction:column; gap:12px; margin-top:14px;">
+                  <label style="display:block;">
+                    <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:5px;">学年・区分</span>
+                    <select value="{{ gakunen }}" onChange="{{ onGakunen }}" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe;">
+                      <option value="">選択してください</option>
+                      <option value="小学1年生">小学1年生</option>
+                      <option value="小学2年生">小学2年生</option>
+                      <option value="小学3年生">小学3年生</option>
+                      <option value="小学4年生">小学4年生</option>
+                      <option value="小学5年生">小学5年生</option>
+                      <option value="小学6年生">小学6年生</option>
+                      <option value="中学1年生">中学1年生</option>
+                      <option value="中学2年生">中学2年生</option>
+                      <option value="中学3年生">中学3年生</option>
+                      <option value="高校生">高校生</option>
+                      <option value="一般">一般（社会人など）</option>
+                    </select>
+                  </label>
+                  <div>
+                    <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:5px;">{{ nameLabel }}</span>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                      <input type="text" name="sei" placeholder="姓" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe; transition:border .2s;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                      <input type="text" name="mei" placeholder="名" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe; transition:border .2s;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                    </div>
+                  </div>
+                  <div>
+                    <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:5px;">フリガナ</span>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                      <input type="text" name="furiSei" placeholder="セイ" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe; transition:border .2s;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                      <input type="text" name="furiMei" placeholder="メイ" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe; transition:border .2s;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                    </div>
+                  </div>
+                  <label style="display:block;">
+                    <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:5px;">電話番号</span>
+                    <input type="tel" name="tel" placeholder="090-0000-0000" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe; transition:border .2s;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                  </label>
+                  <label style="display:block;">
+                    <span style="display:block; font-size:12px; font-weight:800; color:#33606f; margin-bottom:5px;">メールアドレス</span>
+                    <input type="email" name="email" placeholder="example@email.com" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:12px 13px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe; transition:border .2s;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                  </label>
+                </div>
+                <button type="submit" style="margin-top:18px; width:100%; font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:var(--accent,#ff6a3d); color:#fff; font-weight:900; font-size:16px; padding:15px; border-radius:999px; box-shadow:0 12px 26px rgba(255,90,43,.34);">この日で予約する</button>
+              </form>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- PLAN / PAYMENT FORM -->
+        <sc-if value="{{ showPlanForm }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="padding:34px 30px 22px; background:linear-gradient(160deg,#0c3a4d,#0a93c4); border-radius:26px 26px 0 0; color:#fff;">
+              <div style="font-size:12.5px; font-weight:700; opacity:.85;">お申し込みプラン</div>
+              <div style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:24px; margin-top:4px;">{{ planName }}</div>
+              <div style="font-size:13px; opacity:.85; margin-top:2px;">{{ planSessions }}</div>
+            </div>
+            <div style="padding:24px 30px 0;">
+              <div style="background:#f5fbfe; border:1.5px solid #e2f1f8; border-radius:16px; padding:18px 18px;">
+                <div style="font-size:12px; font-weight:800; color:#5a7d8c; margin-bottom:12px; letter-spacing:.05em;">初月のお支払い</div>
+                <div style="display:flex; justify-content:space-between; font-size:14px; color:#33606f; margin-bottom:9px;"><span>入会金</span><span style="font-weight:700;">¥4,400</span></div>
+                <div style="display:flex; justify-content:space-between; font-size:14px; color:#33606f; margin-bottom:12px;"><span>月会費（{{ planName }}）</span><span style="font-weight:700;">{{ planPrice }}</span></div>
+                <div style="height:1px; background:#e2f1f8; margin-bottom:12px;"></div>
+                <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-weight:800; color:#0a3346;">初月合計</span><span style="font-family:'Zen Maru Gothic',sans-serif; font-weight:900; font-size:22px; color:var(--accent,#ff6a3d);">{{ planFirst }}</span></div>
+                <div style="font-size:11.5px; color:#88a3ae; margin-top:8px;">2ヶ月目以降は {{ planPrice }}/月 を自動決済（年1回 更新料 ¥4,400）</div>
+              </div>
+            </div>
+            <form onSubmit="{{ submitPayment }}" style="padding:20px 30px 30px;">
+              <div style="font-size:12px; font-weight:800; color:#5a7d8c; margin-bottom:12px; letter-spacing:.05em; display:flex; align-items:center; gap:8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="3" stroke="#5a7d8c" stroke-width="2"/><path d="M3 9h18" stroke="#5a7d8c" stroke-width="2"/></svg>
+                カード情報
+              </div>
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <input type="text" placeholder="カード番号  1234 5678 9012 3456" inputmode="numeric" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:13px 14px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                  <input type="text" placeholder="MM / YY" style="border:1.5px solid #dce9ef; border-radius:12px; padding:13px 14px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                  <input type="text" placeholder="CVC" style="border:1.5px solid #dce9ef; border-radius:12px; padding:13px 14px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+                </div>
+                <input type="text" placeholder="カード名義（保護者さま）" style="width:100%; border:1.5px solid #dce9ef; border-radius:12px; padding:13px 14px; font-size:15px; font-family:'Zen Kaku Gothic New',sans-serif; color:#0c3a4d; outline:none; background:#fafdfe;" style-focus="border:1.5px solid var(--ocean,#0a93c4);">
+              </div>
+              <button type="submit" style="margin-top:20px; width:100%; font-family:'Zen Maru Gothic',sans-serif; border:none; cursor:pointer; background:var(--accent,#ff6a3d); color:#fff; font-weight:900; font-size:16px; padding:16px; border-radius:999px; box-shadow:0 12px 26px rgba(255,90,43,.34); display:flex; align-items:center; justify-content:center; gap:8px;">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M6 12l4 4 8-9" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                {{ planFirst }} を支払って申し込む
+              </button>
+              <div style="text-align:center; font-size:11.5px; color:#9bb2bc; margin-top:12px; display:flex; align-items:center; justify-content:center; gap:6px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="#9bb2bc" stroke-width="2"/><path d="M8 11V8a4 4 0 018 0v3" stroke="#9bb2bc" stroke-width="2"/></svg>
+                Stripe による安全な決済（デモ表示）
+              </div>
+            </form>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accent&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#ff6a3d&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;ocean&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#0a93c4&quot;, &quot;tsType&quot;: &quot;string&quot; }
+}">
+class Component extends DCLogic {
+  state = { slide: 0, checkout: null, paid: false, coachesOpen: false, weekOffset: 0, selectedDate: null, gakunen: '', withdrawOpen: false, withdrawn: false };
+
+  componentDidMount() {
+    this._root = document.getElementById('koza-lp');
+    this.applyVars();
+    try {
+      const v = document.querySelector('video[src="intro-video.mp4"]');
+      if (v) { v.muted = true; v.setAttribute('muted', ''); v.loop = true; v.controls = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+    } catch (_) {}
+    this._timer = null;
+    this._nav = document.getElementById('lp-nav');
+    this._onScroll = () => {
+      if (!this._nav) return;
+      const solid = (window.scrollY || document.documentElement.scrollTop) > 50;
+      this._nav.style.background = solid ? 'rgba(255,255,255,.9)' : 'transparent';
+      this._nav.style.backdropFilter = solid ? 'blur(12px)' : 'none';
+      this._nav.style.boxShadow = solid ? '0 6px 24px rgba(10,58,77,.1)' : 'none';
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+    // hover pause on slideshow
+    const ss = this._root && this._root.querySelector('[data-reveal="180"]');
+    if (ss) {
+      ss.addEventListener('mouseenter', () => { this._hover = true; });
+      ss.addEventListener('mouseleave', () => { this._hover = false; });
+    }
+  }
+
+  componentDidUpdate() { this.applyVars(); }
+
+  applyVars() {
+    if (!this._root) return;
+    if (this.props.accent) this._root.style.setProperty('--accent', this.props.accent);
+    if (this.props.ocean) this._root.style.setProperty('--ocean', this.props.ocean);
+  }
+
+  setupReveal() {
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    els.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(38px)';
+      el.style.transition = 'opacity .9s cubic-bezier(.2,.75,.2,1), transform .9s cubic-bezier(.2,.75,.2,1)';
+    });
+    const show = el => {
+      const d = parseInt(el.getAttribute('data-reveal')) || 0;
+      setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'none'; }, d);
+    };
+    if ('IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((ents) => {
+        ents.forEach(e => { if (e.isIntersecting) { show(e.target); this._io.unobserve(e.target); } });
+      }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+      els.forEach(el => this._io.observe(el));
+    } else {
+      els.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+    }
+    this._safety = setTimeout(() => els.forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; }), 4800);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._timer);
+    clearTimeout(this._safety);
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._io) this._io.disconnect();
+    document.body.style.overflow = '';
+  }
+
+  go(d) { const n = (this.state.slide + d + 3) % 3; this.setState({ slide: n }); }
+  to(i) { this.setState({ slide: i }); }
+
+  openTrial() { this.setState({ checkout: { type: 'trial' }, paid: false, weekOffset: 0, selectedDate: null, gakunen: '' }); document.body.style.overflow = 'hidden'; }
+  openPlan(p) { this.setState({ checkout: p, paid: false }); document.body.style.overflow = 'hidden'; }
+  close() { this.setState({ checkout: null, paid: false }); document.body.style.overflow = ''; }
+  pay(e) { if (e && e.preventDefault) e.preventDefault(); this.setState({ paid: true }); }
+  openWithdraw() { this.setState({ withdrawOpen: true, withdrawn: false }); document.body.style.overflow = 'hidden'; }
+  closeWithdraw() { this.setState({ withdrawOpen: false, withdrawn: false }); document.body.style.overflow = ''; }
+  submitWithdraw(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    try {
+      const els = e.target.querySelectorAll('input,select,textarea');
+      const v = (i) => els[i] ? els[i].value.trim() : '';
+      const d = new Date();
+      const rec = { id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), name: v(0), course: v(1), month: v(2), contact: v(3), reason: v(4), date: d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(), createdAt: new Date().toISOString() };
+      const arr = JSON.parse(localStorage.getItem('miyata_withdraw') || '[]');
+      arr.push(rec); localStorage.setItem('miyata_withdraw', JSON.stringify(arr));
+    } catch (_) {}
+    this.setState({ withdrawn: true });
+  }
+  submitPayment(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    try {
+      const c = this.state.checkout || {};
+      const els = e.target.querySelectorAll('input');
+      const nm = els[3] ? els[3].value.trim() : '';
+      const d = new Date();
+      const rec = { id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), plan: c.name || '', price: c.price || '', first: c.first || '', cardName: nm, date: d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(), createdAt: new Date().toISOString() };
+      const arr = JSON.parse(localStorage.getItem('miyata_payments') || '[]');
+      arr.push(rec); localStorage.setItem('miyata_payments', JSON.stringify(arr));
+    } catch (_) {}
+    this.setState({ paid: true });
+  }
+  submitTrial(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    try {
+      const f = e.target;
+      const g = (n) => { const el = f.querySelector('[name="' + n + '"]'); return el ? el.value.trim() : ''; };
+      const rec = { id: Date.now() + '-' + Math.random().toString(36).slice(2, 7), date: this.state.selectedDate, gakunen: this.state.gakunen, sei: g('sei'), mei: g('mei'), furiSei: g('furiSei'), furiMei: g('furiMei'), tel: g('tel'), email: g('email'), createdAt: new Date().toISOString() };
+      const arr = JSON.parse(localStorage.getItem('miyata_entries') || '[]');
+      arr.push(rec); localStorage.setItem('miyata_entries', JSON.stringify(arr));
+    } catch (_) {}
+    this.setState({ paid: true });
+  }
+  _today() { const d = new Date(); d.setHours(0,0,0,0); return d; }
+  prevWeek() { this.setState({ weekOffset: Math.max(0, this.state.weekOffset - 1) }); }
+  nextWeek() { this.setState({ weekOffset: Math.min(51, this.state.weekOffset + 1) }); }
+  pickDay(iso) { this.setState({ selectedDate: iso }); }
+  onGakunen(e) { this.setState({ gakunen: e.target.value }); }
+  _selLabel() { const s = this.state.selectedDate; if (!s) return ''; const p = s.split('-').map(Number); const dt = new Date(p[0], p[1]-1, p[2]); const wk = ['日','月','火','水','木','金','土']; return p[1] + '月' + p[2] + '日（' + wk[dt.getDay()] + '）'; }
+  _navBtnStyle(on) { return { width: '34px', height: '34px', flex: 'none', borderRadius: '50%', border: '1.5px solid #e2f1f8', background: '#fff', cursor: on ? 'pointer' : 'default', opacity: on ? 1 : 0.35, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }; }
+  dayStatus(date) {
+    const today = this._today();
+    if (date < today) return 'past';
+    const dow = date.getDay();
+    if (dow === 2 || dow === 6 || dow === 0) return 'closed';
+    const seed = date.getFullYear() * 10000 + (date.getMonth()+1) * 100 + date.getDate();
+    const booked = ((seed * 1103515245 + 12345) >>> 0) % 6;
+    if (booked >= 5) return 'full';
+    if (booked >= 3) return 'few';
+    return 'ok';
+  }
+  buildCalendar() {
+    const today = this._today();
+    const mon = new Date(today);
+    const off = (mon.getDay() + 6) % 7;
+    mon.setDate(mon.getDate() - off + this.state.weekOffset * 7);
+    const wk = ['月','火','水','木','金','土','日'];
+    const map = { ok: { s: '○', c: '#1fb06b' }, few: { s: '△', c: '#ef8a2b' }, full: { s: '✕', c: '#c2491f' }, closed: { s: '✕', c: '#9aa7ae' }, past: { s: '—', c: '#c7d0d5' } };
+    const days = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(mon); d.setDate(mon.getDate() + i);
+      const st = this.dayStatus(d);
+      const iso = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+      const sel = this.state.selectedDate === iso;
+      const can = (st === 'ok' || st === 'few');
+      const m = map[st];
+      days.push({ iso, dow: wk[i], dm: (d.getMonth()+1) + '/' + d.getDate(), sym: m.s, symColor: m.c, onClick: can ? (() => this.pickDay(iso)) : null, dowStyle: { fontSize: '10.5px', fontWeight: 800, color: i === 5 ? '#0a93c4' : (i === 6 ? '#d2453a' : '#7c98a6') }, cellStyle: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px', padding: '8px 2px', border: sel ? '2px solid var(--ocean,#0a93c4)' : '1.5px solid #e7eef2', borderRadius: '10px', background: sel ? '#eaf7fc' : (can ? '#ffffff' : '#f4f6f7'), cursor: can ? 'pointer' : 'default', opacity: st === 'past' ? 0.45 : 1, minHeight: '60px' } });
+    }
+    const last = new Date(mon); last.setDate(mon.getDate() + 6);
+    const fmt = (x) => (x.getMonth()+1) + '/' + x.getDate();
+    return { days, weekLabel: fmt(mon) + '（月）〜 ' + fmt(last) + '（日）', canPrev: this.state.weekOffset > 0, canNext: this.state.weekOffset < 51 };
+  }
+  openCoaches() { this.setState({ coachesOpen: true }); document.body.style.overflow = 'hidden'; }
+  closeCoaches() { this.setState({ coachesOpen: false }); document.body.style.overflow = ''; }
+
+  renderVals() {
+    const i = this.state.slide;
+    const c = this.state.checkout;
+    const sceneStyle = (idx) => ({ position: 'absolute', inset: 0, background: '#ffffff', overflow: 'hidden', opacity: idx === i ? 1 : 0, transition: 'opacity .9s ease', zIndex: idx === i ? 2 : 1, pointerEvents: idx === i ? 'auto' : 'none' });
+    const scene0Style = sceneStyle(0), scene1Style = sceneStyle(1), scene2Style = sceneStyle(2);
+    const dots = [0, 1, 2].map((idx) => ({
+      onClick: () => this.to(idx),
+      style: { width: idx === i ? '30px' : '10px', height: '10px', borderRadius: '999px', border: 'none', cursor: 'pointer', padding: 0, transition: 'all .4s ease', background: idx === i ? 'var(--ocean,#0a93c4)' : 'rgba(10,147,196,.28)' },
+    }));
+
+    const isTrial = !!c && c.type === 'trial';
+    const isPlan = !!c && c.type === 'plan';
+    const cal = this.buildCalendar();
+
+    return {
+      scene0Style, scene1Style, scene2Style, dots,
+      prev: () => this.go(-1),
+      next: () => this.go(1),
+      openTrial: () => this.openTrial(),
+      openBasic: () => this.openPlan({ type: 'plan', name: '小学生コース', price: '¥6,600', sessions: '週2回 / 1回 約60分', first: '¥11,000' }),
+      openPremium: () => this.openPlan({ type: 'plan', name: 'アスリート育成コース', price: '¥9,900', sessions: '週2回 / 1回 約60分', first: '¥14,300' }),
+      reasons: [
+        { num: '01', delay: '0', iconBg: 'linear-gradient(140deg,#0a93c4,#27c0e6)', title: '楽しいから続く', body: 'かけっこ・鬼ごっこ・リレー。遊びの延長で身体を動かすから、子どもが自分から「また行きたい」と言う教室です。' },
+        { num: '02', delay: '120', iconBg: 'linear-gradient(140deg,#ff8a5c,#ff5a2b)', title: '基礎から正しく', body: '走る・跳ぶの正しいフォームを、専門コーチが一人ひとりに合わせて指導。運動会やスポーツの土台が育ちます。' },
+        { num: '03', delay: '240', iconBg: 'linear-gradient(140deg,#1fb06b,#27c08a)', title: '自信と体力がつく', body: '「できた！」の積み重ねが自信に。本格的な陸上競技場で、のびのびと体力・運動能力を伸ばします。' },
+      ],
+      skills: [
+        { delay: '0', name: '走る力', tag: 'スピードUP', bg: 'linear-gradient(140deg,#0a93c4,#27c0e6)', tagBg: '#e6f5fb', tagColor: '#0a7099', icon: 's-run.png' },
+        { delay: '80', name: '跳ぶ力', tag: '瞬発力UP', bg: 'linear-gradient(140deg,#ff8a5c,#ff5a2b)', tagBg: '#fff0ea', tagColor: '#c2491f', icon: 's-jump.png' },
+        { delay: '160', name: '投げる力', tag: 'パワーUP', bg: 'linear-gradient(140deg,#1fb06b,#27c08a)', tagBg: '#e9f8f0', tagColor: '#0a7d4f', icon: 's-throw.png' },
+        { delay: '240', name: '体の使い方', tag: 'バランスUP', bg: 'linear-gradient(140deg,#6a8bd6,#8a6ad6)', tagBg: '#f0eefb', tagColor: '#5b4fa3', icon: 's-balance.png' },
+        { delay: '320', name: 'ケガに強い体', tag: '体づくり', bg: 'linear-gradient(140deg,#0a5f8a,#0c3a4d)', tagBg: '#e6eff5', tagColor: '#0a5f8a', icon: 's-shield.png' },
+      ],
+      sports: ['サッカー', '野球', 'バスケ', 'バレー', 'テニス', '水泳', '格闘技', 'ダンス'],
+      coaches: [
+        { id: 'coach-1', delay: '0', name: '宮田 健太', role: 'ヘッドコーチ', specialty: '短距離・スプリント', achievements: ['陸上競技歴 15年 / 指導歴 8年', '延べ300名以上の子どもを指導', '県大会・記録会で入賞者を多数輩出'], message: '「できた！」の笑顔が一番のごほうび。走る楽しさから丁寧に伝えます。' },
+        { id: 'coach-2', delay: '120', name: '金城 美咲', role: 'キッズ担当コーチ', specialty: '低学年・運動あそび', achievements: ['幼児体育・運動指導の資格を保有', '運動が苦手な子のサポートが得意', '体の使い方・基礎づくりを担当'], message: 'まずは体を動かす楽しさから。一人ひとりのペースを大切にします。' },
+        { id: 'coach-3', delay: '240', name: '大城 翔', role: '競技コーチ', specialty: '中学生〜一般・記録向上', achievements: ['実業団・競技での競技経験あり', '中高生の競技力強化を担当', '大会に向けた専門トレーニング'], message: '目標に向かって本気で伸ばす。一人ひとりの記録更新を全力で支えます。' },
+      ],
+      basicFeatures: ['定員20名の少人数制', '週2回・1回 約60分', '低学年/高学年クラスで指導', '走る・跳ぶの基礎づくり'],
+      premiumFeatures: ['定員20名の少人数制', '専門的なトレーニングで記録向上', '記録会・大会にチャレンジ', '中学生〜一般まで歓迎'],
+      courses: [
+        { id: 'course-low', img: 'course-low.png', delay: '0', title: '低学年コース', grade: '小1〜3年', color: '#0a7d4f', border: '#cfeede', tagBg: '#eefaf3', days: '月・木', time: '17:00〜18:00', price: '¥6,600', body: '走る・跳ぶ・投げるの基礎や運動遊びを通して、楽しく体を動かします。毎週木曜日は「体操教室」を開催します。', onClick: () => this.openPlan({ type: 'plan', name: '低学年コース', price: '¥6,600', sessions: '週2回（月・木）/ 1回 約60分', first: '¥11,000' }) },
+        { id: 'course-high', img: 'course-high.png', delay: '120', title: '高学年コース', grade: '小4〜6年', color: '#c2491f', border: '#ffd9c9', tagBg: '#fff3ee', days: '水・金', time: '17:00〜18:00', price: '¥6,600', body: '正しいフォームを身につけ、短距離・リレーを中心に走力アップを目指します。', onClick: () => this.openPlan({ type: 'plan', name: '高学年コース', price: '¥6,600', sessions: '週2回（水・金）/ 1回 約60分', first: '¥11,000' }) },
+        { id: 'course-adv', img: 'course-adv.png', delay: '240', title: 'アスリート育成コース', grade: '中学生〜一般', color: '#0a5f8a', border: '#cfe6f0', tagBg: '#eef6fb', days: '月・水・金', time: '18:15〜19:15', price: '¥9,900', body: '専門的なトレーニングで記録向上を目指します。一般・社会人の方も歓迎です。', onClick: () => this.openPlan({ type: 'plan', name: 'アスリート育成コース', price: '¥9,900', sessions: '週2回・約60分 ／ 詳細は週間スケジュール', first: '¥14,300' }) },
+      ],
+      accessRows: [
+        { tag: '住所', label: 'コザ運動公園 陸上競技場', value: '沖縄県沖縄市（詳細はお問い合わせください）' },
+        { tag: '時間', label: '練習時間', value: '17:00〜18:00（小学生） ／ 18:15〜19:15（アスリート育成）' },
+        { tag: '対象', label: '対象', value: '小学生〜一般（小1〜・社会人も歓迎）' },
+      ],
+      // modal
+      modalOpen: !!c,
+      paid: this.state.paid,
+      showTrialForm: isTrial && !this.state.paid,
+      calendarDays: cal.days,
+      weekLabel: cal.weekLabel,
+      prevWeek: () => this.prevWeek(),
+      nextWeek: () => this.nextWeek(),
+      prevBtnStyle: this._navBtnStyle(cal.canPrev),
+      nextBtnStyle: this._navBtnStyle(cal.canNext),
+      hasSelected: !!this.state.selectedDate,
+      selectedLabel: this._selLabel(),
+      gakunen: this.state.gakunen,
+      onGakunen: (e) => this.onGakunen(e),
+      nameLabel: this.state.gakunen === '一般' ? 'お名前（ご本人）' : '保護者さまのお名前',
+      showPlanForm: isPlan && !this.state.paid,
+      planName: c ? c.name : '',
+      planPrice: c ? c.price : '',
+      planSessions: c ? c.sessions : '',
+      planFirst: c ? c.first : '',
+      successTitle: isTrial ? 'ご予約ありがとうございます！' : 'お申し込み完了！',
+      successBody: isTrial ? (this._selLabel() + ' で体験・見学のご予約を受け付けました。担当より確認のご連絡をいたします。当日は動きやすい服装でお越しください！') : 'ご登録のカードへ初月分を請求しました。次回の練習日からご参加いただけます。一緒にがんばりましょう！',
+      trialFields: [
+        { label: '保護者さまのお名前', type: 'text', ph: '沖縄 太郎' },
+        { label: 'お子さまの学年', type: 'text', ph: '小学2年生' },
+        { label: 'ご希望の体験・見学日', type: 'text', ph: '例）今週の土曜日' },
+        { label: '電話番号 または メール', type: 'text', ph: '090-0000-0000' },
+      ],
+      closeCheckout: () => this.close(),
+      pay: (e) => this.pay(e),
+      submitTrial: (e) => this.submitTrial(e),
+      submitPayment: (e) => this.submitPayment(e),
+      withdrawOpen: this.state.withdrawOpen,
+      withdrawn: this.state.withdrawn,
+      withdrawForm: !this.state.withdrawn,
+      openWithdraw: () => this.openWithdraw(),
+      openGenkids: (e) => {
+        try {
+          if (e && e.preventDefault) e.preventDefault();
+          const w = window.open('https://www.instagram.com/genkids_2025?igsh=c3JtMjA1eDQ3MzZt', '_blank', 'noopener,noreferrer');
+          if (!w && window.top) { window.top.location.href = 'https://www.instagram.com/genkids_2025?igsh=c3JtMjA1eDQ3MzZt'; }
+        } catch (_) {
+          window.location.href = 'https://www.instagram.com/genkids_2025?igsh=c3JtMjA1eDQ3MzZt';
+        }
+      },
+      closeWithdraw: () => this.closeWithdraw(),
+      submitWithdraw: (e) => this.submitWithdraw(e),
+      coachesOpen: this.state.coachesOpen,
+      openCoaches: () => this.openCoaches(),
+      closeCoaches: () => this.closeCoaches(),
+      stop: (e) => { if (e && e.stopPropagation) e.stopPropagation(); },
+    };
+  }
+}
+</script>
+</body>
+</html>
