@@ -109,9 +109,15 @@ body {
   padding: 0;
 }
 
+/* Weekly schedule: table on desktop, day-cards on mobile */
+.mac-sched-cards { display: none; }
+
 @media (max-width: 767px) {
   .mac-nav-links { display: none !important; }
   .mac-hamburger { display: flex !important; }
+
+  .mac-sched-table { display: none !important; }
+  .mac-sched-cards { display: flex !important; }
 
   .mac-mobile-menu {
     position: fixed;

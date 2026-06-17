@@ -919,7 +919,7 @@ export default function Home() {
               <h3 style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "clamp(20px,2.6vw,26px)", margin: 0, color: "#0a3346" }}>週間スケジュール</h3>
               <div style={{ color: accent, fontWeight: 800, fontSize: "13px" }}>※火・土・日は休講です</div>
             </div>
-            <div style={{ overflowX: "auto", borderRadius: "18px", border: "1.5px solid #e2f1f8", boxShadow: "0 12px 30px rgba(10,147,196,.08)" }}>
+            <div className="mac-sched-table" style={{ overflowX: "auto", borderRadius: "18px", border: "1.5px solid #e2f1f8", boxShadow: "0 12px 30px rgba(10,147,196,.08)" }}>
               <table style={{ width: "100%", minWidth: "580px", tableLayout: "fixed", borderCollapse: "collapse", background: "#fff", fontSize: "13px" }}>
                 <thead>
                   <tr>
@@ -957,6 +957,40 @@ export default function Home() {
                 </tbody>
               </table>
             </div>
+
+            {/* mobile-friendly day cards (shown < 768px) */}
+            <div className="mac-sched-cards" style={{ flexDirection: "column", gap: "12px" }}>
+              {[
+                { day: "月", items: [
+                  { time: "17:00〜18:00", label: "低学年コース", color: "#0a7d4f", bg: "#eefaf3" },
+                  { time: "18:15〜19:15", label: "アスリート育成", color: "#0a5f8a", bg: "#eef6fb" },
+                ] },
+                { day: "水", items: [
+                  { time: "17:00〜18:00", label: "高学年コース", color: "#c2491f", bg: "#fff3ee" },
+                  { time: "18:15〜19:15", label: "アスリート育成", color: "#0a5f8a", bg: "#eef6fb" },
+                ] },
+                { day: "木", items: [
+                  { time: "17:00〜18:00", label: "低学年コース（体操教室）", color: "#0a7d4f", bg: "#eefaf3" },
+                ] },
+                { day: "金", items: [
+                  { time: "17:00〜18:00", label: "高学年コース", color: "#c2491f", bg: "#fff3ee" },
+                  { time: "18:15〜19:15", label: "アスリート育成", color: "#0a5f8a", bg: "#eef6fb" },
+                ] },
+              ].map((d) => (
+                <div key={d.day} style={{ display: "flex", gap: "12px", background: "#fff", border: "1.5px solid #e2f1f8", borderRadius: "16px", padding: "14px", boxShadow: "0 8px 20px rgba(10,147,196,.06)" }}>
+                  <div style={{ flex: "none", width: "44px", height: "44px", borderRadius: "12px", background: "#0a93c4", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "18px" }}>{d.day}</div>
+                  <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "9px", justifyContent: "center" }}>
+                    {d.items.map((it, i) => (
+                      <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px" }}>
+                        <span style={{ flex: "none", fontSize: "12.5px", fontWeight: 700, color: "#5a7d8c", whiteSpace: "nowrap" }}>{it.time}</span>
+                        <span style={{ fontWeight: 800, fontSize: "12.5px", color: it.color, background: it.bg, padding: "5px 12px", borderRadius: "999px", textAlign: "center", lineHeight: 1.35 }}>{it.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
             <p style={{ color: "#88a3ae", fontSize: "12px", margin: "12px 0 0" }}>※大会やイベントにより、スケジュールは変更になる場合があります。</p>
           </Reveal>
         </div>
