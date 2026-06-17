@@ -106,7 +106,7 @@ const COACHES = [
 ];
 
 const ACCESS_ROWS = [
-  { tag: "住所", label: "コザ運動公園 陸上競技場", value: "沖縄県沖縄市（詳細はお問い合わせください）" },
+  { tag: "住所", label: "コザ運動公園 陸上競技場", value: "〒904-0032 沖縄県沖縄市諸見里2丁目1-1 コザ運動公園内" },
   {
     tag: "時間",
     label: "練習時間",
@@ -1004,11 +1004,15 @@ export default function Home() {
             <h2 style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "clamp(26px,3.6vw,40px)", margin: 0, color: "#0a3346" }}>練習場所</h2>
           </Reveal>
           <Reveal delay={80} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,280px),1fr))", gap: "26px", alignItems: "stretch" }}>
-            <div style={{ position: "relative", borderRadius: "24px", overflow: "hidden", minHeight: "300px", background: "repeating-linear-gradient(45deg,#dceef6,#dceef6 14px,#e8f4fa 14px,#e8f4fa 28px)", border: "1.5px solid #cfe6f0", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <div style={{ textAlign: "center", color: "#6f93a2" }}>
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" style={{ margin: "0 auto 8px", display: "block" }}><path d="M12 21s-7-5.2-7-10a7 7 0 1114 0c0 4.8-7 10-7 10z" stroke="#6f93a2" strokeWidth="2" /><circle cx="12" cy="11" r="2.4" stroke="#6f93a2" strokeWidth="2" /></svg>
-                <div style={{ fontFamily: "'SF Mono',ui-monospace,Menlo,monospace", fontSize: "12px", letterSpacing: ".05em" }}>Google Map を埋め込み</div>
-              </div>
+            <div style={{ position: "relative", borderRadius: "24px", overflow: "hidden", minHeight: "300px", border: "1.5px solid #cfe6f0", boxShadow: "0 16px 36px rgba(10,147,196,.1)" }}>
+              <iframe
+                title="コザ運動公園 陸上競技場の地図"
+                src={`https://www.google.com/maps?q=${encodeURIComponent("〒904-0032 沖縄県沖縄市諸見里2丁目1-1 コザ運動公園")}&z=16&hl=ja&output=embed`}
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0, display: "block" }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
             </div>
             <div style={{ background: "#fff", border: "1.5px solid #e2f1f8", borderRadius: "24px", padding: "clamp(26px,4vw,38px)", boxShadow: "0 16px 36px rgba(10,147,196,.1)" }}>
               <h3 style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "23px", margin: "0 0 6px", color: "#0a3346" }}>コザ運動公園 陸上競技場</h3>
