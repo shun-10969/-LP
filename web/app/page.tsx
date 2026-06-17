@@ -654,7 +654,7 @@ export default function Home() {
               </Hoverable>
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "18px", marginTop: "26px" }}>
-              {["定員20名で安心", "手ぶらでOK・まずは体験から"].map((t, i) => (
+              {["定員制で安心", "手ぶらでOK・まずは体験から"].map((t, i) => (
                 <div key={i} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13.5px", fontWeight: 700, color: "#2e5d70" }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                     <circle cx="12" cy="12" r="10" fill="rgba(31,176,107,.16)" />
@@ -771,7 +771,7 @@ export default function Home() {
             <Reveal delay={240} style={{ position: "relative", background: "#fff6f1", border: "1.5px solid #ffe0d3", borderRadius: "22px", padding: "30px 26px", overflow: "hidden", transition: "transform .3s ease, box-shadow .3s ease" }} hoverStyle={{ transform: "translateY(-6px)", boxShadow: "0 20px 40px rgba(255,106,61,.16)" }}>
               <div style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "13px", color: accent, letterSpacing: ".08em", marginBottom: "14px" }}>こだわり 03</div>
               <h3 style={{ fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "19px", margin: "0 0 11px", color: "#0a3346", lineHeight: 1.45 }}>少人数で、ひとりに<br />向き合う。</h3>
-              <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.9, color: "#7a5546" }}>各コース<b style={{ color: "#c2491f" }}>定員20名</b>。人数をしぼるからこそ、コーチの目がきちんと届きます。「ちゃんと見てもらえている」——その安心感が、子どもの“できた！”を増やします。</p>
+              <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.9, color: "#7a5546" }}>各コース<b style={{ color: "#c2491f" }}>定員制</b>。人数をしぼるからこそ、コーチの目がきちんと届きます。「ちゃんと見てもらえている」——その安心感が、子どもの“できた！”を増やします。</p>
             </Reveal>
           </div>
         </div>
@@ -863,7 +863,6 @@ export default function Home() {
                 style={{ position: "relative", background: "#fff", border: `2px solid ${c.border}`, borderRadius: "22px", overflow: "hidden", display: "flex", flexDirection: "column", transition: "transform .3s ease, box-shadow .3s ease" }}
                 hoverStyle={{ transform: "translateY(-6px)", boxShadow: "0 22px 44px rgba(10,58,77,.16)" }}
               >
-                <div style={{ position: "absolute", top: "12px", right: "12px", zIndex: 2, background: "rgba(255,255,255,.92)", color: c.color, fontFamily: "'Zen Maru Gothic',sans-serif", fontWeight: 900, fontSize: "11px", padding: "5px 11px", borderRadius: "999px", boxShadow: "0 4px 10px rgba(0,0,0,.12)" }}>定員20名</div>
                 <div style={{ background: c.tagBg, height: "180px", display: "flex", alignItems: "center", justifyContent: "center", padding: "12px 24px", overflow: "hidden" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={`/assets/${c.img}`} alt={c.title} style={{ height: "100%", width: "auto", maxWidth: "100%", objectFit: "contain", display: "block" }} />
@@ -893,7 +892,7 @@ export default function Home() {
             ))}
           </div>
 
-          <p style={{ textAlign: "center", color: "#5a7d8c", fontSize: "13.5px", fontWeight: 700, margin: "20px 0 0" }}>各コース定員20名 <span style={{ color: "#88a3ae", fontWeight: 600 }}>※エリア拡大に伴い増員予定</span></p>
+          <p style={{ textAlign: "center", color: "#5a7d8c", fontSize: "13.5px", fontWeight: 700, margin: "20px 0 0" }}>各コース定員制 <span style={{ color: "#88a3ae", fontWeight: 600 }}>※エリア拡大に伴い増員予定</span></p>
 
           <Reveal delay={80} style={{ marginTop: "26px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: "14px" }}>
             <div style={{ background: "#fff6f1", border: "1.5px solid #ffe0d3", borderRadius: "18px", padding: "18px 20px", textAlign: "center" }}>
